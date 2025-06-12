@@ -49,19 +49,19 @@ The analysis of historical data reveals overall an upward trend in ticket volume
 
 1. Next let's view the distribution of support requests across various product types.
 
-2. Choose Add on the application bar, and then choose Add visual. Select the Donut chart from the menu.
+2. Choose Add on the application bar, and then choose Add visual. Select the **Donut chart** from the menu.
 
 ![4](../../images/2/2.3/4.png)
 
 3. From the Fields list in primary left pane add necessary fields in the following order:
 
-   * drag category to Group/Color field
-   * drag ticket_id to Value field
+   * drag category to **Group/Color** field
+   * drag ticket_id to **Value** field
 
 ![5](../../images/2/2.3/5.gif)
 
 {{% notice %}}
-The analysis show Lighting category has most volume of tickets.
+The analysis show **Lighting** category has most volume of tickets.
 {{% /notice %}}
 ### Analyze product with highest support requests
 

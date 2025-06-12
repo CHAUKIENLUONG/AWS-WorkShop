@@ -14,15 +14,15 @@ You have just completed setting up a Product and Support Knowledge base!
 
 In this lab, you:
 
-1. Learned the basics of Retrieval-Augmented Generagion (RAG) and prompt engineering.
+1. Learned the basics of **Retrieval-Augmented Generagion (RAG)** and prompt engineering.
 
-2. Created an Amazon Bedrock Knowledge Base.
+2. Created an **Amazon Bedrock Knowledge Base**.
 
-  1. Deployed Vector Engine for Amazon OpenSearch Serverless
+    1. Deployed **Vector Engine for Amazon OpenSearch Serverless**
 
-  2. Used Amazon Titan to create vector embeddings.
+    2. Used **Amazon Titan** to create vector embeddings.
 
-3. Tested the knowledge base by interacting with a Large Language Model (LLM).
+3. Tested the knowledge base by interacting with a **Large Language Model (LLM)**.
 
 ### Next Steps
 

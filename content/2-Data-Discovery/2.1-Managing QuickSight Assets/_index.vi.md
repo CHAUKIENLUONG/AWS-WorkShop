@@ -1,56 +1,61 @@
 +++
-title = "Create IAM Role"
-date = 2024
+title = "Quản lý Tài sản QuickSight"
+date = 2025
 weight = 1
 chapter = false
 pre = "<b>2.1. </b>"
 +++
 
-## Create IAM Role
+### Giới thiệu
 
-In this step, we'll navigate to the IAM Console interface and create a role for the Glue service. This role will allow AWS Glue to access data in S3 and create necessary objects in the Glue Catalog.
+Trong phần này, chúng ta sẽ quản lý các tài sản QuickSight để cho phép người dùng QuickSight truy cập các nguồn dữ liệu đã được tạo sẵn. Những nguồn dữ liệu được tạo sẵn này cho phép QuickSight truy cập các cơ sở dữ liệu nguồn.
 
-1. Access the [AWS Management Console](https://aws.amazon.com/console/)
+### Các bước:
 
-   - Search for **IAM**
-   - Select **IAM** to enter the **IAM Dashboard**
+### Chia sẻ nguồn dữ liệu với người dùng QuickSight
 
-   ![IAM](../../../images/1/iam-service-cropped.png)
+1. Điều hướng đến [console](https://quicksight.aws.amazon.com/sn/start) Amazon QuickSight.
+2. Nếu xuất hiện **What's New in Amazon QuickSight**, nhấp vào đóng.
+   ![1](../../../images/2/2.1/1.png)
+3. Đăng nhập DataSources
+   Truy cập console quản lý QuickSight, nhấp vào biểu tượng **user** nằm trên dải đen phía trên bên phải. Nhấp **Manage QuickSight** từ menu dropdown.
 
-2. In the IAM Dashboard
+![2](../../../images/2/2.1/2.png)
 
-   - Select **Role**
-   - Select **Create role**
+{{% notice %}}
+Đây là console quản trị viên QuickSight. Từ đây, các quản trị viên QuickSight có thể quản lý người dùng, nhóm, tài sản; thiết lập bảo mật tài khoản và quyền để cho phép QuickSight truy cập các tài nguyên AWS khác; quản lý tài nguyên cấp mạng.
+{{% /notice %}}
 
-   ![IAM](../../../images/1/create_iam_role_cropped.png?width=90pc)
+4. Nhấp **Manage assets** trong menu bên trái. Đây là nơi chúng ta sẽ cho phép người dùng của mình truy cập các nguồn dữ liệu đã được tạo sẵn.
 
-3. In the **Create role** interface, at the **Select trusted entity** step
+5. Trong console Manage assets, nhấp **Data sources** trong phần Browse assets ở dưới cùng.
 
-   - Select **AWS Service**
-   - Under _Service or use case_ select **Glue**
-   - Select **Next**
+![3](../../../images/2/2.1/3.png)
 
-   ![IAM](../../../images/1/create_iam_role_detail.png?width=90pc)
+6. Hai nguồn dữ liệu chúng ta cần chia sẻ là ohmzio-database và ampwerks-database. Chia sẻ chúng bằng cách tích vào ô bên trái và sau đó nhấp vào nút **SHARE (2)**.
 
-4. In the **Create role** interface, at the **Add Permission** step
+![4](../../../images/2/2.1/4.png)
 
-   - Search and select **AmazonS3FullAccess**
+7. Trong trường User or Group, nhập email sau: `participant-d2e2@amazon.com`. Nhấp vào tên người dùng WSParticipantRole/Participant - ADMIN_PRO để điền vào trường. Nhấp **SHARE (2)**.
 
-   ![AmazonS3FullAccess](../../../images/1/add_s3_permission_2step.png?width=90pc)
+   `participant-d2e2@amazon.com`
 
-   - Search and select **AWSGlueServiceRole**
-   - Select **Next**
+![5](../../../images/2/2.1/5.png)
 
-   ![AWSGlueServiceRole](../../../images/1/add_glue_permission.png?width=90pc)
+![6](../../../images/2/2.1/6.png)
 
-5. In the **Create role** interface, at the **Name, review and create** step
+8. Sau khi các tài sản đã được chia sẻ thành công, nhấp **DONE**. Bỏ qua thông báo "What's New in Amazon QuickSight".
 
-   - Under **Role name**, enter `AWSGlueServiceRoleDefault`
-     ![AWSGlueServiceRole](../../../images/1/name_role.png?width=90pc)
-   - Review the role information at **Select trusted entity** and **Add Permission**
-     ![AWSGlueServiceRole](../../../images/1/review_role.png?width=90pc)
-   - Select **Create role**
-     ![AWSGlueServiceRole](../../../images/1/create_role_submit.png?width=90pc)
+### Xác minh các nguồn dữ liệu đã được chia sẻ chính xác
 
-6. Successful role creation interface:
-   ![AWSGlueServiceRole](../../../images/1/create_role_success.png?width=90pc)
+1. Điều hướng lại trang chủ QuickSight bằng cách nhấp vào biểu tượng **QuickSight** trên dải đen phía trên bên trái.
+
+![7](../../../images/2/2.1/7.png)
+
+2. Nhấp **Datasets** trong menu bên trái, sau đó nhấp **New dataset** ở góc trên bên phải.
+
+![8](../../../images/2/2.1/8.png)
+
+3. Trong trang Create a Dataset, trong phần FROM EXISTING DATA SOURCES ở dưới cùng, bạn sẽ thấy hai tùy chọn: ohmzio-database và ampwerks-database.
+
+![9](../../../images/2/2.1/9.png)

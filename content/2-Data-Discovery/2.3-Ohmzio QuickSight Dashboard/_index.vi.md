@@ -1,5 +1,5 @@
 +++
-title = "Bảng điều khiển Ohmzio QuickSight"
+title = "Dashboard QuickSight Ohmzio"
 date = 2025
 weight = 3
 chapter = false
@@ -8,106 +8,106 @@ pre = "<b>2.3. </b>"
 
 ### Giới thiệu
 
-Trong phần này, chúng ta sẽ tạo một phân tích về các loại yêu cầu và vấn đề mà khách hàng đang gặp phải, điều này có thể giúp xác định các lĩnh vực cần cải thiện trong sản phẩm và dịch vụ.
+Trong phần này, chúng ta sẽ tạo một phân tích để phân tích các loại yêu cầu và vấn đề mà khách hàng đang đưa ra, điều này có thể giúp xác định các lĩnh vực cần cải thiện trong sản phẩm và dịch vụ.
 
-### Các bước thực hiện:
+### Các bước:
 
-### Tạo phân tích mới từ tập dữ liệu
+### Tạo phân tích mới từ dataset
 
-1. Điều hướng đến trang QuickSight [Datasets](https://quicksight.aws.amazon.com/sn/console/signup).
+1. Điều hướng đến trang [Datasets](https://quicksight.aws.amazon.com/sn/console/signup) QuickSight.
 
-2. Nhấp vào nút menu ba chấm ⋮ bên cạnh tập dữ liệu customer_support_discovery, sau đó chọn **CREATE ANALYSIS**.
+2. Nhấp vào nút menu ellipsis ⋮ bên cạnh dataset customer_support_discovery, sau đó chọn **CREATE ANALYSIS**.
 
 ![1](../../../images/2/2.3/1.png)
 
-3. Trong cửa sổ **New sheet**, giữ nguyên lựa chọn **Interactive sheet** và nhấp vào nút **CREATE**.
+3. Trên pop-up **New sheet**, để **Interactive sheet** được chọn và nhấp nút **CREATE**.
 
-### Phân tích số lượng ticket hỗ trợ theo tháng
+### Phân tích khối lượng ticket hỗ trợ theo tháng
 
-1. Hãy bắt đầu bằng việc phân tích số lượng ticket hỗ trợ độc nhất nhận được theo tháng.
+1. Hãy bắt đầu bằng cách phân tích khối lượng ticket hỗ trợ duy nhất nhận được theo cơ sở hàng tháng.
 
-2. Nhấp vào biểu đồ trống và thay đổi loại biểu đồ thành biểu đồ đường.
+2. Nhấp vào visual trống và thay đổi loại visual thành biểu đồ đường.
 
 ![2](../../../images/2/2.3/2.png)
 
-3. Từ **fields list** trong **primary left pane**:
+3. Từ **danh sách fields** trong **primary left pane**:
 
-   * kéo ticket_date vào trường **X axis**
-   * kéo ticket_id vào trường **value**
+   - kéo ticket_date vào trường **X axis**
+   - kéo ticket_id vào trường **value**
 
-4. Mặc định, bạn sẽ thấy ticket_date được tổng hợp theo ngày. Nhấp vào biểu tượng ba chấm bên cạnh trường ticket_date trong phần **X AXIS** để truy cập menu cấp trường của biểu đồ để thay đổi tổng hợp từ ngày sang tháng.
+4. Theo mặc định, bạn sẽ thấy ticket_date được tổng hợp theo ngày. Nhấp vào ellipsis bên cạnh trường ticket_date từ phần **X AXIS** của visual để truy cập menu field cấp visual để thay đổi tổng hợp từ ngày sang tháng.
 
-5. Nhấp vào biểu tượng ba chấm bên cạnh trường ticket_id trong phần **VALUE** để truy cập menu cấp trường của biểu đồ để thay đổi tổng hợp từ count sang count distinct để có được số lượng ticket độc nhất.
+5. Nhấp vào ellipsis bên cạnh trường ticket_id từ phần **VALUE** của visual để truy cập menu field cấp visual để thay đổi tổng hợp từ count sang count distinct để lấy số lượng ticket duy nhất.
 
 ![3](../../../images/2/2.3/3.gif)
 
 {{%notice%}}
-Phân tích dữ liệu lịch sử cho thấy xu hướng tăng chung về số lượng ticket qua các tháng, cho thấy nhu cầu dịch vụ hỗ trợ ngày càng tăng.
+Phân tích dữ liệu lịch sử cho thấy tổng thể xu hướng tăng lên trong khối lượng ticket qua các tháng, cho thấy nhu cầu ngày càng tăng cho các dịch vụ hỗ trợ.
 {{%/notice%}}
 
 ### Phân tích yêu cầu hỗ trợ theo loại sản phẩm
 
-1. Tiếp theo, hãy xem phân bố yêu cầu hỗ trợ trên các loại sản phẩm khác nhau.
+1. Tiếp theo hãy xem phân phối các yêu cầu hỗ trợ trên các loại sản phẩm khác nhau.
 
-2. Chọn Add trên thanh ứng dụng, sau đó chọn Add visual. Chọn biểu đồ Donut từ menu.
+2. Chọn Add trên thanh ứng dụng, sau đó chọn Add visual. Chọn **Donut chart** từ menu.
 
 ![4](../../../images/2/2.3/4.png)
 
-3. Từ Fields list trong primary left pane thêm các trường cần thiết theo thứ tự sau:
+3. Từ danh sách Fields trong primary left pane thêm các trường cần thiết theo thứ tự sau:
 
-   * kéo category vào trường Group/Color
-   * kéo ticket_id vào trường Value
+   - kéo category vào trường **Group/Color**
+   - kéo ticket_id vào trường **Value**
 
 ![5](../../../images/2/2.3/5.gif)
 
 {{% notice %}}
-Phân tích cho thấy danh mục Lighting có số lượng ticket nhiều nhất.
+Phân tích cho thấy danh mục **Lighting** có khối lượng ticket nhiều nhất.
 {{% /notice %}}
 
 ### Phân tích sản phẩm có nhiều yêu cầu hỗ trợ nhất
 
-1. Tiếp theo, hãy xem sản phẩm nào có số lượng ticket hỗ trợ nhiều nhất.
+1. Tiếp theo hãy xem sản phẩm nào có số lượng ticket hỗ trợ nhiều nhất.
 
 2. Chọn Add trên thanh ứng dụng, sau đó chọn Add visual. Chọn **Tree map** từ menu.
 
 ![6](../../../images/2/2.3/6.png)
 
-3. Từ Fields list trong primary left pane thêm các trường cần thiết theo thứ tự sau:
+3. Từ danh sách Fields trong primary left pane thêm các trường cần thiết theo thứ tự sau:
 
-   * kéo name[products] vào trường **GROUP BY**
+   - kéo name[products] vào trường **GROUP BY**
 
 {{% notice info %}}
-Bạn có thể thấy name[customers] thay vì name[products]. Bởi vì cả bảng customers và products đều có cột tên "name", QuickSight đổi tên một trong số chúng. Đảm bảo bạn chọn name[products] hoặc chỉ name nếu bạn chỉ thấy name[customers].
+Bạn có thể thấy name[customers] thay vì name[products]. Vì cả bảng customers và products đều có cột có tên "name", Quicksight đổi tên một trong số chúng. Hãy đảm bảo bạn chọn name[products] hoặc chỉ name nếu bạn chỉ thấy name[customers].
 {{% /notice %}}
 
-   * kéo ticket_id vào trường **Color**
+- kéo ticket_id vào trường **Color**
 
 {{% notice note %}}
-Ký hiệu trong ngoặc vuông cho products chỉ ra rằng thuộc tính này xuất phát từ bảng products. Khi join các bảng có cùng tên cột, QuickSight giải quyết điều này bằng cách thêm tên bảng. Nếu bạn join support_tickets với bảng products trước khi join với bảng customers, tên cột của bạn sẽ khác.
+Ký hiệu ngoặc vuông cho products cho biết thuộc tính có nguồn gốc từ bảng products. Khi join các bảng có cùng tên cột, QuickSight giải quyết điều này bằng cách thêm tên bảng. Nếu bạn join support_tickets với bảng products trước khi join với bảng customers, tên cột của bạn sẽ khác.
 {{% /notice %}}
 
 ![7](../../../images/2/2.3/7.gif)
 
 {{%notice%}}
-Phân tích cho thấy sản phẩm **Ohmzio Smart Plug** có số lượng ticket nhiều nhất.
+Phân tích cho thấy sản phẩm **Ohmzio Smart Plug** có khối lượng ticket nhiều nhất.
 {{%/notice%}}
 
-### Thêm insights được đề xuất
+### Thêm insights được gợi ý
 
-1. Tiếp theo, hãy thêm các insights được đề xuất.
+1. Tiếp theo hãy thêm các insights được gợi ý.
 
-2. Nhấp vào biểu đồ Tree map để chỉ ra đây là biểu đồ chúng ta muốn dựa vào để tạo insights (khi được chọn, sẽ có khung màu đen xung quanh). Tiếp theo, nhấp vào biểu tượng **Insights** (biểu tượng hình bóng đèn). Panel Insights mở ra và hiển thị danh sách các insights sẵn sàng sử dụng được đề xuất. Cuộn xuống để xem trước các insights mà chúng ta có thể thêm vào bảng điều khiển dựa trên dữ liệu và xu hướng trong biểu đồ Tree map.
+2. Nhấp vào visual Tree map để chỉ ra đây là visual chúng ta muốn dựa insights từ đó (khi được chọn, sẽ có hộp đen xung quanh chu vi). Tiếp theo, nhấp vào biểu tượng **Insights** (biểu tượng hình bóng đèn). Panel Insights mở ra và hiển thị danh sách các insights được gợi ý sẵn sàng sử dụng. Cuộn xuống để xem trước các insights chúng ta có thể thêm vào dashboard dựa trên dữ liệu và xu hướng trong visual Tree map.
 
 ![8](../../../images/2/2.3/8.png)
 
-3. Thêm một insight được đề xuất (ví dụ: **Top 3 Products by Ticket Count**) vào phân tích của bạn bằng cách chọn dấu cộng (+) gần tiêu đề insight.
+3. Thêm một insight được gợi ý (như **Top 3 Products by Ticket Count**) vào phân tích của bạn bằng cách chọn dấu cộng (+) gần tiêu đề insight.
 
 ![9](../../../images/2/2.3/9.png)
 
-4. Bạn có thể điều chỉnh kích thước của insights nhỏ hơn và di chuyển chúng lên trên biểu đồ **Tree Map**.
+4. Bạn có thể thay đổi kích thước insights để nhỏ hơn và di chuyển chúng lên trên visual **Tree Map** của bạn.
 
 ![10](../../../images/2/2.3/10.gif)
 
 {{%notice%}}
-Các insights tự động tạo ra cho thấy các sản phẩm Smart Plug và Smart Vent có số lượng ticket nhiều nhất.
+Các insights được tạo tự động cho thấy rằng sản phẩm Smart Plug và Smart Vent có khối lượng ticket nhiều nhất.
 {{%/notice%}}

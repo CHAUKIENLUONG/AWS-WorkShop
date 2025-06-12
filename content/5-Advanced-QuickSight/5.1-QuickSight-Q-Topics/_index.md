@@ -26,11 +26,12 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
     2. On the Topics page that opens, choose **New topic** at upper right.
 
     ![1](../../images/5/5.1/1.png)
+
   {{%notice note%}}
   If you don't have the option to create a new topic, refresh the page. QuickSight needs your updated credentials.
   {{%/notice%}}
 
-    3. On the **New topic** page that opens, enter **Topic name, Description**, and check **Use new generative Q&A experience**.
+  3. On the **New topic** page that opens, enter **Topic name, Description**, and check **Use new generative Q&A experience**.
 
       * **Topic Name**:
 
@@ -42,7 +43,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
       ![2](../../images/5/5.1/2.png)
 
-    4. Click **Continue**. On **Select a dataset** screen choose the customer_support_discovery dataset and then choose **Create**.
+  4. Click **Continue**. On **Select a dataset** screen choose the customer_support_discovery dataset and then choose **Create**.
 
   {{%notice note%}}
   The process of creating the QuickSight topic may take few minutes to complete depending on the size of your datasets. This step sets up the supporting resources needed for your QuickSight topic. Do not navigate away from this page until the topic has been fully created.
@@ -60,7 +61,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
 ![4](../../images/5/5.1/4.png)
 
-5. In the popup window, click **DISMISS ALL TASKS**. When asked to confirm, click** DISMISS ALL TASKS AGAIN**.
+5. In the popup window, click **DISMISS ALL TASKS**. When asked to confirm, click **DISMISS ALL TASKS AGAIN**.
 
 ![5](../../images/5/5.1/5.png)
 
@@ -75,7 +76,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
     `Distinct Tickets Count`
 
-    3. Search distinct_count function from Functions list available on the right and double-click on it to add it the workspace. Place your cursor inside the parenthesis in the workspace, and search ticket id from Fields list available on the right and double-click on it to add it the workspace.
+    3. Search **distinct_count** function from **Functions** list available on the right and double-click on it to add it the workspace. Place your cursor inside the parenthesis in the workspace, and search **ticket id** from **Fields** list available on the right and double-click on it to add it the workspace.
 
     As an alternative, you can manually enter the calculation.
 
@@ -191,7 +192,7 @@ Here is a sample generative response:
 If the topic returns a blank window, try refreshing the page and resubmitting the question.
 {{%/notice%}}
 
-Experiment by asking a few more questions.
+3. Experiment by asking a few more questions.
 
 `Which products had the most support cases last year?`
 
@@ -200,7 +201,7 @@ Experiment by asking a few more questions.
 `Which location had the most most support cases?`
 
 {{%notice note%}}
-Tip - To help you form questions, think Who, What, Where, When and Why.
+**Tip** - To help you form questions, think Who, What, Where, When and Why.
 {{%/notice%}}
 
 4. When you are finished asking questions, close **Ask Questions** screen by clicking behind the popup window. This will return to the **Trouble Tickets** summary tab.

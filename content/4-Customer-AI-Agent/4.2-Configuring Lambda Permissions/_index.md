@@ -49,7 +49,7 @@ For your agent to use a **Lambda** function, you must attach a resource-based po
 
     `my-custom-id-0001`
 
-    4. In the *Principal* text box, enter:
+    4. In the **Principal** text box, enter:
 
     `bedrock.amazonaws.com`
 

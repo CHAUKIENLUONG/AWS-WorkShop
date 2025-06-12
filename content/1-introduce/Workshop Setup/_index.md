@@ -91,7 +91,7 @@ If the validation script identified any issues:
 
 #### Step 3: Deploy the Template
 
-1. Download the template to baseline the account with required infrastructure: [Account Baseline Cloudformation Template](/account-baseline.yaml)
+1. Download the template to baseline the account with required infrastructure: [Account Baseline Cloudformation Template](https://raw.githubusercontent.com/CHAUKIENLUONG/AWS-WorkShop/refs/heads/main/static/account-baseline.yaml)
 2. Open the [Cloudformation Console](https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks?filteringText=&filteringStatus=active&viewNested=true) , and create a new stack.
 3. Copy the parameter values from the "Template Parameter Settings" section in the CloudShell output from Step 1 of this guide, update the parameters in the CloudFormation console where the template will be deployed.
 4. Deploy the CloudFormation template

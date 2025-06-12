@@ -18,7 +18,7 @@ This lab walks you through the process of using Agents for Amazon Bedrock to add
 
 **Lab Steps**
 
-1.Create an agent for Amazon Bedrock.
+1. Create an agent for Amazon Bedrock.
 2. Add action groups to the agent.
 3. Test the agent and view the trace information.
 

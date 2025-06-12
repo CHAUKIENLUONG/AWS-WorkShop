@@ -22,7 +22,7 @@ In this section, we will be managing QuickSight assets to enable QuickSight user
 
 ![2](../../images/2/2.1/2.png)
 
-{{% notice success %}}
+{{% notice %}}
 This is the QuickSight administrator console. From here, QuickSight administrators can manage users, groups, assets; set account security and permissions to enable QuickSight access to other AWS resources; manage network level resources.
 {{% /notice %}}
 
@@ -44,7 +44,7 @@ This is the QuickSight administrator console. From here, QuickSight administrato
 
 ![6](../../images/2/2.1/6.png)
 
-8. Once the assets have been shared successfully, click DO\*\*NE. Ignore the "What's New in Amazon QuickSight" prompt.
+8. Once the assets have been shared successfully, click DONE. Ignore the "What's New in Amazon QuickSight" prompt.
 
 ### Verify the data sources were shared correctly
 

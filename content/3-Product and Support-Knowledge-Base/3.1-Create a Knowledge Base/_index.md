@@ -30,10 +30,10 @@ Please note, AWS is continually making improvements to and expanding Bedrock cap
 
    ![1](../../images/3/3.1/1.png)
 
-   3.  In the Model access menu, click Enable specific models --or-- Modify model access.
+   3.  In the Model access menu, click **Enable specific models** --or-- **Modify model access**.
 
    {{%notice info%}}
-   Do not select Enable all models.
+   Do **not** select **Enable all models**.
    {{%/notice %}}
 
    4.  Select the following Base models:
@@ -95,7 +95,7 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
    ![7](../../images/3/3.1/7.png)
 
-   2.  Click customerdata-{uniqueId} bucket name. Click the radio button next to data/ to select it as the location for the source data. Click Choose.
+   2.  Click **customerdata-{uniqueId}** bucket name. Click the radio button next to data/ to select it as the location for the source data. Click **Choose**.
 
    {{%notice note%}}
    If you can't find your bucket, make sure you are in the correct AWS region.
@@ -115,23 +115,23 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
 5.  Step 3, select embeddings model and configure vector store:
 
-   ![10](../../images/3/3.1/10.png)
+      ![10](../../images/3/3.1/10.png)
 
-   1.  Under Embeddings model, click Select model and then select **Titan TExt Embeddings V2** model and **On-demand Inference mode**.
+      1.  Under Embeddings model, click Select model and then select **Titan Text Embeddings V2** model and **On-demand Inference mode**.
 
-   {{%notice%}}
-   This is the model that will be used to create the vector embeddings in the vector store.
-   {{%/notice%}}
+      
+      *This is the model that will be used to create the vector embeddings in the vector store.*
+      
 
-   2.  Under Vector store, Select Quick create a new vector store - Recommended method and Amazon OpenSearch Serverless as the vector store type. This is the default and should already be selected.
+      2.  Under Vector store, Select Quick create a new vector store - Recommended method and Amazon OpenSearch Serverless as the vector store type. This is the default and should already be selected.
 
-   {{%notice%}}
-   An Amazon OpenSearch Serverless vector store will be created automatically for you.
-   {{%/notice%}}
+      
+      *An Amazon OpenSearch Serverless vector store will be created automatically for you.*
+      
 
-   Leave the optional configurations unchecked.
+      Leave the optional configurations unchecked.
 
-   3. Click **Next**.
+      3. Click **Next**.
 
 6. Step 4, Review and create:
 

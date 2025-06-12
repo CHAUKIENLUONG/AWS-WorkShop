@@ -8,204 +8,206 @@ pre = "<b>5.1. </b>"
 
 ### Giới thiệu
 
-Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên bộ dữ liệu customer_support_discovery mà chúng ta đã tạo trong phòng thí nghiệm khám phá dữ liệu. **Q topic** sẽ đẩy nhanh các quyết định dựa trên dữ liệu với Q&A theo ngôn ngữ tự nhiên, bao gồm:
+Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên dataset customer_support_discovery mà chúng ta đã tạo trong lab khám phá dữ liệu. **Q topic** sẽ tăng tốc các quyết định dựa trên dữ liệu với Q&A nhân văn, bao gồm:
 
-* Tường thuật được tạo bởi AI làm nổi bật các thông tin quan trọng
-* Câu trả lời đa hình ảnh cho câu hỏi của bạn cùng với hình ảnh hỗ trợ để thêm ngữ cảnh có giá trị
-* Câu hỏi gợi ý được tạo bởi AI và được tác giả xem xét cùng với bản xem trước dữ liệu tự động
+- Tường thuật được tạo bởi AI làm nổi bật các insights chính
+- Câu trả lời đa hình ảnh cho câu hỏi của bạn cùng với các hình ảnh hỗ trợ để thêm context có giá trị
+- Các câu hỏi được gợi ý được tạo bởi AI và được tác giả xem xét cùng với các bản xem trước dữ liệu tự động
 
-### Các bước thực hiện
+### Các bước
+
 ### Xem xét các trường:
 
-1. Điều hướng đến [bảng điều khiển](https://quicksight.aws.amazon.com/sn/start) Amazon QuickSight.
+1.  Điều hướng đến [console](https://quicksight.aws.amazon.com/sn/start) Amazon QuickSight.
 
-2. Để kích hoạt truy vấn ngôn ngữ tự nhiên cho dữ liệu của bạn, trước tiên bạn phải **tạo một topic**.
+2.  Để bật truy vấn ngôn ngữ tự nhiên cho dữ liệu của bạn, bạn trước tiên phải **tạo một topic**.
 
-    1. Trên trang khởi động QuickSight, chọn **Topics**.
+    1. Trên trang bắt đầu QuickSight, chọn **Topics**.
 
     2. Trên trang Topics mở ra, chọn **New topic** ở góc trên bên phải.
 
     ![1](../../../images/5/5.1/1.png)
+    
   {{%notice note%}}
-  Nếu bạn không thấy tùy chọn tạo topic mới, hãy làm mới trang. QuickSight cần thông tin xác thực cập nhật của bạn.
+  Nếu bạn không có tùy chọn tạo topic mới, hãy làm mới trang. QuickSight cần thông tin đăng nhập cập nhật của bạn.
   {{%/notice%}}
 
-    3. Trên trang **New topic** mở ra, nhập **Tên chủ đề, Mô tả**, và đánh dấu chọn **Sử dụng trải nghiệm Q&A tạo sinh mới**.
+  3. Trên trang **New topic** mở ra, nhập **Topic name, Description**, và tích **Use new generative Q&A experience**.
 
-      * **Tên chủ đề**:
+       - **Topic Name**:
 
-      `Vé sự cố`
+       `Trouble Tickets`
 
-      * **Mô tả chủ đề**:
+       - **Topic Description**:
 
-      `Khám phá dữ liệu vé`
+       `Explore ticket data`
 
-      ![2](../../../images/5/5.1/2.png)
+       ![2](../../../images/5/5.1/2.png)
 
-    4. Nhấp vào **Tiếp tục**. Trên màn hình **Chọn bộ dữ liệu**, chọn bộ dữ liệu customer_support_discovery và sau đó chọn **Tạo**.
+  4. Nhấp **Continue**. Trên màn hình **Select a dataset** chọn dataset customer_support_discovery và sau đó chọn **Create**.
 
-  {{%notice note%}}
-  Quá trình tạo chủ đề QuickSight có thể mất vài phút để hoàn thành tùy thuộc vào kích thước của các bộ dữ liệu của bạn. Bước này thiết lập các tài nguyên hỗ trợ cần thiết cho chủ đề QuickSight của bạn. Đừng điều hướng ra khỏi trang này cho đến khi chủ đề đã được tạo hoàn toàn.
-  {{%/notice%}}
+{{%notice note%}}
+Quá trình tạo QuickSight topic có thể mất vài phút để hoàn thành tùy thuộc vào kích thước của datasets của bạn. Bước này thiết lập các tài nguyên hỗ trợ cần thiết cho QuickSight topic của bạn. Không điều hướng khỏi trang này cho đến khi topic được tạo hoàn toàn.
+{{%/notice%}}
 
-3. Sau khi tạo chủ đề, bạn sẽ được đưa trực tiếp đến không gian làm việc của chủ đề. Nếu bạn đã đóng cửa sổ popup trong quá trình tạo chủ đề, hãy làm theo các bước bổ sung bên dưới. Nếu không, hãy tiếp tục với việc xem xét chủ đề.
+3. Sau khi tạo topic, bạn sẽ được đưa trực tiếp đến workspace của topic. Nếu bạn đóng cửa sổ popup trong quá trình tạo topic, làm theo các bước bổ sung bên dưới. Nếu không, tiếp tục với việc xem xét topic.
 
-    1. Tìm chủ đề dưới trang **Amazon Q Topics**.
+   1. Tìm topic dưới trang **Amazon Q Topics**.
 
-    ![3](../../../images/5/5.1/3.png)
+   ![3](../../../images/5/5.1/3.png)
 
-    2. Nhấp vào tên chủ đề Vé sự cố để mở không gian làm việc của chủ đề đó.
+   2. Nhấp vào tên topic Trouble Tickets để mở workspace của topic đó.
 
-4. Bạn sẽ xem xét cài đặt chủ đề của mình bằng cách nhấp vào nút **Bắt đầu xem xét** trên tab **Tóm tắt** của chủ đề Vé sự cố.
+4. Bạn sẽ xem xét cài đặt topic bằng cách nhấp vào nút **Start Review** trên tab **Summary** của topic Trouble Tickets.
 
 ![4](../../../images/5/5.1/4.png)
 
-5. Trong cửa sổ popup, nhấp vào **BỎ QUA TẤT CẢ CÁC NHIỆM VỤ**. Khi được yêu cầu xác nhận, nhấp vào **BỎ QUA TẤT CẢ CÁC NHIỆM VỤ MỘT LẦN NỮA**.
+5. Trong cửa sổ popup, nhấp **DISMISS ALL TASKS**. Khi được hỏi để xác nhận, nhấp **DISMISS ALL TASKS AGAIN**.
 
 ![5](../../../images/5/5.1/5.png)
 
-6. Tạo **Trường Tính toán** để đếm số lượng vé, khách hàng và sản phẩm.
+6. Tạo **Calculated Fields** để đếm số lượng tickets, customers, và products.
 
-    1. Chọn tab **Dữ liệu**, sau đó là **Trường Dữ liệu**. Nhấp vào nút **Thêm trường tính toán**.
-    
-    ![6](../../../images/5/5.1/6.png)
+   1. Chọn tab **Data**, sau đó **Data Fields**. Nhấp nút **Add calculated field**.
 
-    2. Nhập **Tên** trong trình chỉnh sửa tính toán như sau:
+   ![6](../../../images/5/5.1/6.png)
 
-    `Số lượng vé duy nhất`
+   2. Nhập **Name** trong trình soạn thảo tính toán như:
 
-    3. Tìm kiếm hàm distinct_count từ danh sách Các hàm có sẵn ở bên phải và nhấp đúp vào nó để thêm nó vào không gian làm việc. Đặt con trỏ của bạn bên trong dấu ngoặc đơn trong không gian làm việc, và tìm kiếm mã vé từ danh sách Các trường có sẵn ở bên phải và nhấp đúp vào nó để thêm nó vào không gian làm việc.
+   `Distinct Tickets Count`
 
-    Là một sự thay thế, bạn có thể nhập thủ công phép tính.
+   3. Tìm kiếm function **distinct_count** từ danh sách **Functions** có sẵn bên phải và nhấp đúp vào nó để thêm vào workspace. Đặt con trỏ của bạn bên trong dấu ngoặc trong workspace, và tìm kiếm **ticket id** từ danh sách **Fields** có sẵn bên phải và nhấp đúp vào nó để thêm vào workspace.
 
-    `distinct_count({Ticket Id})`
+   Như một lựa chọn thay thế, bạn có thể nhập tính toán thủ công.
 
-    ![7](../../../images/5/5.1/7.png)
+   `distinct_count({Ticket Id})`
 
-    4. Lưu phép tính của bạn bằng cách chọn **Lưu** ở góc trên bên phải.
+   ![7](../../../images/5/5.1/7.png)
 
-    5. Lặp lại các bước trên để thêm hai **Trường Tính toán** nữa.
+   4. Lưu tính toán của bạn bằng cách chọn **Save** ở góc trên bên phải.
 
-        1. Số lượng Khách hàng duy nhất
+   5. Lặp lại các bước trên để thêm hai **Calculated Fields** nữa.
 
-        `Số lượng Khách hàng duy nhất`
+      1. Distinct Customers Count
 
-        `distinct_count({Customer Id})`
+      `Distinct Customers Count`
 
-        ![8](../../../images/5/5.1/8.png)
+      `distinct_count({Customer Id})`
 
-        2. Số lượng Sản phẩm duy nhất
-  
-        `Số lượng Sản phẩm duy nhất`
+      ![8](../../../images/5/5.1/8.png)
 
-        `distinct_count({Product Id})`
+      2. Distinct Products Count
 
-      ![9](../../../images/5/5.1/9.png)
+      `Distinct Products Count`
 
-7. Trong phần **Trường Dữ liệu**, điều chỉnh bộ lọc để hiển thị **Tất cả các trường**.
+      `distinct_count({Product Id})`
+
+   ![9](../../../images/5/5.1/9.png)
+
+7. Trong phần **Data Fields**, điều chỉnh bộ lọc để hiển thị **All fields**.
 
 ![10](../../../images/5/5.1/10.png)
 
-8. Trong phần **Trường Dữ liệu**, dưới **Bao gồm**, chuyển đổi nút BẬT và TẮT để bao gồm/loại trừ các trường cho chủ đề của bạn. Bắt đầu bằng cách loại trừ các định danh duy nhất: **Agent Id, Customer Id**, và **Product Id**.
+8. Trong phần **Data Fields**, dưới **Include**, bật tắt nút ON và OFF để bao gồm/loại trừ các trường cho topic của bạn. Bắt đầu bằng cách loại trừ các định danh duy nhất: **Agent Id, Customer Id**, và **Product Id**.
 
-9. Đối với các trường đã bao gồm, thêm các từ đồng nghĩa và chi tiết mà Q sẽ sử dụng để liên kết các trường với các câu hỏi của người dùng. Bao gồm **Ngày vé**. Nhấp vào dấu **+** để thêm các từ đồng nghĩa sau vào **Ngày vé**:
+9. Đối với các trường được bao gồm, thêm synonyms và chi tiết mà Q sẽ sử dụng để liên kết các trường với câu hỏi của người dùng. Bao gồm **Ticket Date**. Nhấp dấu **+** để thêm các synonyms sau vào **Ticket Date**:
 
-* **ngày trường hợp**
-* **ngày mở**
-* **ngày hỗ trợ**
+- **case date**
+- **open date**
+- **support date**
 
-10. Nhấp vào **V** ở bên phải xa của trường dữ liệu để mở rộng nó. Đảm bảo rằng **Ngày vé** có Vai trò là **Kích thước** và Loại Ngữ nghĩa là **Ngày**. Nhập một mô tả.
+10. Nhấp **V** ở bên phải xa nhất của data field để mở rộng nó. Đảm bảo **Ticket Date** có Role là **Dimension** và Semantic Type là **Date**. Nhập mô tả.
 
 ![11](../../../images/5/5.1/11.png)
 
-11. Sử dụng bảng bên dưới để hoàn thành việc xem xét các trường dữ liệu trong chủ đề Q. Bao gồm:
+11. Sử dụng bảng bên dưới để hoàn thành việc xem xét các data fields trong Q topic. Bao gồm:
 
-* **Danh mục**
-* **Công ty**
-* **Thành phố**
-* **Mô tả**
-* **Tên**
-* **Tên Sản phẩm**
-* **Tiểu bang**
-* **Ngày vé**
+- **Category**
+- **Company**
+- **City**
+- **Description**
+- **Name**
+- **Name Products**
+- **State**
+- **Ticket Date**
 
 {{%notice note%}}
-Nhớ rằng, tên trường của bạn cho "Tên Khách hàng" và "Tên Sản phẩm" có thể khác nếu phép nối của bạn được thực hiện theo một thứ tự khác.
+Hãy nhớ, tên trường của bạn cho "Customer Name" và "Product Name" có thể khác nếu join của bạn được thực hiện theo thứ tự khác.
 {{%/notice%}}
 
-| **Bao gồm** | **Tên thân thiện** | **Từ đồng nghĩa** | **Chi tiết** | **Mô tả** |
-|---------|--------------|----------|----------|-------------|
-| Không | Địa chỉ | | | |
-| Không | Agent Id | | | |
-| Có | Danh mục | loại sản phẩm, kiểu sản phẩm | Kích thước | Loại sản phẩm. |
-| Có | Thành phố | thị trấn | Kích thước, Địa điểm, Thành phố | Thành phố nơi khách hàng sinh sống. |
-| Có | Công ty | tập đoàn, tổ chức | Kích thước, Tổ chức | Nhà tuyển dụng của khách hàng. |
-| Không | Customer Id | | | |
-| Không | Customer Id Customers | | | |
-| Có | Mô tả | mô tả sản phẩm, chi tiết sản phẩm | Kích thước, Văn bản mô tả | Mô tả chi tiết sản phẩm. |
-| Có | Số lượng Khách hàng duy nhất | khách hàng, số lượng khách hàng | Đo lường | Số lượng khách hàng. |
-| Có | Số lượng Sản phẩm duy nhất | số lượng sản phẩm, sản phẩm | Đo lường | Số lượng sản phẩm. |
-| Có | Số lượng Vé duy nhất | số lượng vé, trường hợp hỗ trợ | Đo lường | Số lượng vé hỗ trợ. |
-| Không | Dob | | | |
-| Không | Email | | | |
-| Không | Công việc | | | |
-| Không | Vĩ độ | | | |
-| Không | Kinh độ | | | |
-| Có | Tên | tên khách hàng, khách hàng | Kích thước, Người | Họ và tên đầy đủ của khách hàng. |
-| Có | Tên Sản phẩm | tên sản phẩm, mặt hàng, thiết bị, sản phẩm | Kích thước | Tên sản phẩm. |
-| Không | Giá | | | |
-| Không | Điện thoại | | | |
-| Không | Product Id | | | |
-| Không | Product Id Products | | | |
-| Có | Tiểu bang | bang | Kích thước, Địa điểm, Tiểu bang | Bang nơi khách hàng sinh sống. |
-| Có | Ngày vé | ngày trường hợp, ngày mở, ngày hỗ trợ | Kích thước, Ngày | Ngày vé hỗ trợ được mở. |
-| Không | Ticket Id | | | |
-| Không | Mã bưu điện | | | |
+| **Include** | **Friendly name**        | **Synonyms**                         | **Details**                 | **Description**                     |
+| ----------- | ------------------------ | ------------------------------------ | --------------------------- | ----------------------------------- |
+| No          | Address                  |                                      |                             |                                     |
+| No          | Agent Id                 |                                      |                             |                                     |
+| Yes         | Category                 | product category, product type       | Dimension                   | The type of product.                |
+| Yes         | City                     | town                                 | Dimension, Location, City   | The city where the customer lives.  |
+| Yes         | Company                  | corporation, organization            | Dimension, Organization     | The customer's employer.            |
+| No          | Customer Id              |                                      |                             |                                     |
+| No          | Customer Id Customers    |                                      |                             |                                     |
+| Yes         | Description              | product description, product details | Dimension, Descriptive Text | Detailed product description.       |
+| Yes         | Distinct Customers Count | customers, number of customers       | Measure                     | The quantity of customers.          |
+| Yes         | Distinct Products Count  | number of products, products         | Measure                     | The quantity of products.           |
+| Yes         | Distinct Tickets Count   | number of tickets, support cases     | Measure                     | The quantity of support tickets.    |
+| No          | Dob                      |                                      |                             |                                     |
+| No          | Email                    |                                      |                             |                                     |
+| No          | Job                      |                                      |                             |                                     |
+| No          | Latitude                 |                                      |                             |                                     |
+| No          | Longitude                |                                      |                             |                                     |
+| Yes         | Name                     | customer name, customer              | Dimension, Person           | The customer's full name.           |
+| Yes         | Name Products            | product name, item, device, product  | Dimension                   | Name of product.                    |
+| No          | Price                    |                                      |                             |                                     |
+| No          | Phone                    |                                      |                             |                                     |
+| No          | Product Id               |                                      |                             |                                     |
+| No          | Product Id Products      |                                      |                             |                                     |
+| Yes         | State                    | commonwealth                         | Dimension, Location, State  | The state where the customer lives. |
+| Yes         | Ticket Date              | case date, open date, support date   | Dimension, Date             | Date support ticket was opened.     |
+| No          | Ticket Id                |                                      |                             |                                     |
+| No          | Zip                      |                                      |                             |                                     |
 
-### Xem xét các thay đổi:
+### Xem xét thay đổi:
 
-1. Sau khi cập nhật các trường dữ liệu, lọc chế độ xem để chỉ hiển thị các trường đã bao gồm. 
+1. Sau khi cập nhật data fields, lọc view để chỉ hiển thị các trường được bao gồm.
 
 ![12](../../../images/5/5.1/12.png)
 
-2. Xác minh rằng các trường dữ liệu đã bao gồm của bạn khớp với hình ảnh bên dưới. 
+2. Xác minh rằng data fields được bao gồm của bạn khớp với hình ảnh bên dưới.
 
 ![13](../../../images/5/5.1/13.png)
 
-### Kiểm tra chủ đề của bạn:
+### Kiểm tra topic của bạn:
 
-1. Ở giữa thanh màu xanh lam ở đầu màn hình **chủ đề** của bạn, nhấp vào **Hỏi một câu hỏi về Vé sự cố**. Hãy sử dụng **chủ đề** này để khám phá thêm thông tin chi tiết bằng cách đặt câu hỏi bằng ngôn ngữ tự nhiên. 
+1. Ở giữa thanh xanh phía trên trên màn hình **topic** của bạn, nhấp **Ask a question about Trouble Tickets**. Hãy sử dụng **topic** này để khám phá thêm insights bằng cách đặt câu hỏi bằng ngôn ngữ tự nhiên.
 
 ![14](../../../images/5/5.1/14.png)
 
-2. Trong thanh **Amazon Q**, sao chép đoạn văn bản sau, và nhấp vào **HỎI**
+2. Trong thanh **Amazon Q**, sao chép prompt sau, và nhấp **ASK**
 
-`Số lượng vé theo loại sản phẩm?`
+`Number of tickets by product type?`
 
-Dưới đây là một phản hồi tạo sinh mẫu: 
+Đây là một phản hồi sinh mẫu:
 
 ![15](../../../images/5/5.1/15.png)
 
 {{%notice note%}}
-Nếu chủ đề trả về một cửa sổ trống, hãy thử làm mới trang và gửi lại câu hỏi.
+Nếu topic trả về cửa sổ trống, hãy thử làm mới trang và gửi lại câu hỏi.
 {{%/notice%}}
 
-Thử nghiệm bằng cách đặt một vài câu hỏi nữa.
+3. Thử nghiệm bằng cách hỏi thêm một vài câu hỏi.
 
-`Những sản phẩm nào có nhiều trường hợp hỗ trợ nhất trong năm ngoái?`
+`Which products had the most support cases last year?`
 
-`Những sản phẩm nào có nhiều sự cố nhất vào tháng Mười Hai?`
+`Which products had the most issues in December?`
 
-`Địa điểm nào có nhiều trường hợp hỗ trợ nhất?`
+`Which location had the most most support cases?`
 
 {{%notice note%}}
-Mẹo - Để giúp bạn hình thành câu hỏi, hãy nghĩ đến Ai, Cái gì, Ở đâu, Khi nào và Tại sao.
+**Mẹo** - Để giúp bạn hình thành câu hỏi, hãy nghĩ Who, What, Where, When và Why.
 {{%/notice%}}
 
-4. Khi bạn đã hoàn thành việc đặt câu hỏi, hãy đóng màn hình **Hỏi Các Câu Hỏi** bằng cách nhấp ra ngoài cửa sổ popup. Điều này sẽ trở lại tab tóm tắt **Vé sự cố**.
+4. Khi bạn hoàn thành việc đặt câu hỏi, đóng màn hình **Ask Questions** bằng cách nhấp phía sau cửa sổ popup. Điều này sẽ quay lại tab **Trouble Tickets** summary.
 
 ![16](../../../images/5/5.1/16.png)
 
-5. Nhấp vào tab **Hoạt động Người dùng** để xem thống kê người dùng. Điều này sẽ cung cấp dữ liệu về mọi câu hỏi đã được đặt và mức độ phản hồi của Q. Trong tab này, bạn có thể phân tích hiệu suất chủ đề và cập nhật chi tiết chủ đề dựa trên phản hồi. 
+5. Nhấp vào tab **User Activity** để xem thống kê người dùng. Điều này sẽ cung cấp dữ liệu về mọi câu hỏi được hỏi và Q phản hồi tốt như thế nào. Trong tab này bạn có thể phân tích hiệu suất topic và cập nhật chi tiết topic dựa trên phản hồi.
 
 ![17](../../../images/5/5.1/17.png)

@@ -54,7 +54,7 @@ Every time you update the working draft, you must prepare the agent to package t
 
     1. As the agent is working, click Show trace again to view the new tracing data.
 
-    2. In the Orchestration and knowledge base, Trace Step 2, note how the agent decided to invoke the function.
+    2. In the **Orchestration and knowledge base, Trace Step 2**, note how the agent decided to invoke the function.
 
     ![4](../../images/4/4.4/4.png)
 
@@ -77,7 +77,7 @@ Every time you update the working draft, you must prepare the agent to package t
     
     ![6](../../images/4/4.4/6.png)
 
-    Also notice the [1] in the response. Click the footnote to show the knowledge base document used to find the answer. In this instance, the agent was able to find relevant information from past Ohmzio support tickets.
+    Also notice the **[1]** in the response. Click the footnote to show the knowledge base document used to find the answer. In this instance, the agent was able to find relevant information from past Ohmzio support tickets.
 
 8. Continue the dialog.
 

@@ -22,13 +22,13 @@ In this lab, you will setup the agent's purpose and select the appropriate found
 
 4. On the Create Agent screen, enter the name and description of your agent.
 
-5. Name:
+    1. Name:
 
-`customer-support-agent`
+    `customer-support-agent`
 
-2. Description:
+    2. Description:
 
-`AI agent to retrieve customer information and ticket history to further help support representatives to resolve customer issues.`
+    `AI agent to retrieve customer information and ticket history to further help support representatives to resolve customer issues.`
 
 ![1](../../images/4/4.1/1.png)
 
