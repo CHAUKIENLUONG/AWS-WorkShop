@@ -1,0 +1,1172 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploys foundational infrastructure for immersion day
+
+Parameters:
+  SourceBucket:
+    Type: String
+    Default: d2e-demos-published
+  SourcePrefix:
+    Type: String
+    Default: d2e2/
+  BucketNamePrefix:
+    Type: String
+    Default: customerdata
+  OhmzioClusterName:
+    Type: String
+    Default: ohmziodb
+  AmpwerksClusterName:
+    Type: String
+    Default: ampwerksdb
+  DBPort:
+    Type: String
+    Default: 5432
+  DBUsername:
+    Type: String
+    Default: postgres
+  DBPassword:
+    Type: String
+    Default: password
+  LatestAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64'
+  DynamoDBSourcePrefix:
+    Type: String
+    Default: dynamodb/all-customers/AWSDynamoDB/d2e2/data/
+  DynamoDBTableName:
+    Type: String
+    Default: all-customers
+  QuickSightAccountName:
+    Type: String
+    Default: d2e2QuickSightAccount
+  QuickSightUserFirstName:
+    Type: 'String'
+    Default: 'd2e2'
+  QuickSightUserLastName:
+    Type: 'String'
+    Default: 'user'
+  QuickSightPhone:
+    Type: 'String'
+    Description: Enter a 10-digit number
+    Default: '0000000000'
+    AllowedPattern: '^[0-9]{10}$'
+  QuickSightEmail:
+    Type: 'String'
+    Default: 'participant-d2e2@amazon.com'
+  QuickSightAuth:
+    Type: String
+    Default: IAM_AND_QUICKSIGHT
+    AllowedValues:
+      - IAM_AND_QUICKSIGHT
+      - IAM_ONLY
+      - ACTIVE_DIRECTORY
+      - IAM_IDENTITY_CENTER
+  QuickSightEdition:
+    Type: String
+    Default: ENTERPRISE_AND_Q
+    AllowedValues:
+      - STANDARD
+      - ENTERPRISE
+      - ENTERPRISE_AND_Q
+  QSUserRoleName:
+    Description: "The name of the Participant IAM Role"
+    Type: String
+    Default: 'WSParticipantRole'
+  QSUserSessionName:
+    Description: "The Session Name used to assume the UserRoleName"
+    Type: String
+    Default: 'Participant'
+  ExistingQuickSightSubscription:
+    Type: String
+    Default: 'False'
+    AllowedValues:
+      - 'True'
+      - 'False'
+    Description: Indicate whether or not the account being used to run the workshop already has an existing active QuickSight subscription. **WARNING** If this CloudFormation stack is deleted, and the account has a pre-existing active QuickSight subscription and is incorrectly identified, the CloudFormation will attempt to delete the existing subscription. See workshop lab guide for additional details.
+  IsSelfPacedWorkshop:
+    Type: String
+    Default: 'false'
+    AllowedValues: ['true', 'false']
+    Description: Set to 'true' if this is a self-paced workshop deployment
+  
+  DeleteQuickSightOnTermination:
+    Type: String
+    Default: 'false'
+    AllowedValues: ['true', 'false']
+    Description: Whether to delete the QuickSight subscription when the stack is deleted
+
+Conditions:
+  IsSelfPaced: !Equals [!Ref IsSelfPacedWorkshop, 'true']
+  IsManagedWorkshop: !Equals [!Ref IsSelfPacedWorkshop, 'false']
+
+Resources:
+  DestinationBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Join
+        - ''
+        - - !Ref BucketNamePrefix
+          - '-'
+          - !Select
+            - '0'
+            - !Split
+              - '-'
+              - !Select
+                - 2
+                - !Split
+                  - '/'
+                  - !Ref 'AWS::StackId'
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+
+  AuroraLambdaExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      Path: /
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+        - "arn:aws:iam::aws:policy/IAMFullAccess"
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  AuroraDefaultVpcLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: AuroraGetDefaultVpcId
+      Code:
+        ZipFile: |
+          import json
+          import boto3
+          import cfnresponse
+
+          ec2 = boto3.client('ec2')
+
+          def lambda_handler(event, context):              
+              if 'RequestType' in event and event['RequestType'] == 'Create':
+                  vpc_id = get_default_vpc_id()
+                  subnets =  get_subnets_for_vpc(vpc_id)
+                  routetable_id = get_route_table_for_vpc(vpc_id)
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {'VpcId': vpc_id , "Subnets" : subnets, 'RouteTableId': routetable_id}, '')
+              else:
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {},'')
+
+          def get_default_vpc_id():
+              vpcs = ec2.describe_vpcs(Filters=[{'Name': 'is-default', 'Values': ['true']}])
+              vpcs = vpcs['Vpcs']
+              vpc_id = vpcs[0]['VpcId']
+              return vpc_id
+
+          def get_subnets_for_vpc(vpcId):
+              response = ec2.describe_subnets(
+                  Filters=[
+                      {
+                          'Name': 'vpc-id',
+                          'Values': [vpcId]
+                      }
+                  ]
+              )
+              subnet_ids = []
+              for subnet in response['Subnets']:
+                  subnet_ids.append(subnet['SubnetId'])
+              return subnet_ids
+
+          def get_route_table_for_vpc(vpcId):
+              response = ec2.describe_route_tables(
+                  Filters=[
+                      {
+                          'Name': 'vpc-id',
+                          'Values': [vpcId]
+                      },
+                      {
+                          'Name': 'association.main',
+                          'Values': ['true']
+                      }
+                  ]
+              )
+              route_tables = response['RouteTables']
+              if route_tables:
+                  return route_tables[0]['RouteTableId']
+              return None
+      Description: Return default VPC ID and Subnets
+      Handler: index.lambda_handler
+      MemorySize: 512
+      Role: !GetAtt AuroraLambdaExecutionRole.Arn
+      Runtime: python3.12
+      Timeout: 5
+
+  AuroraDefaultVpcFinder:
+    Type: Custom::ResourceForFindingDefaultVpc
+    Properties:
+      ServiceToken: !GetAtt AuroraDefaultVpcLambda.Arn
+
+  DBSubnetGroup:
+    Type: 'AWS::RDS::DBSubnetGroup'
+    Properties:
+      DBSubnetGroupName: database-subnet-group
+      DBSubnetGroupDescription: "Subnet group for Aurora Serverless"
+      SubnetIds: !GetAtt AuroraDefaultVpcFinder.Subnets
+
+  SecurityGroupIngressFromSSH:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkshopClientSecurityGroup.GroupId
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      CidrIp: 0.0.0.0/0
+
+  SecurityGroupIngressFromPostgres:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt AuroraDatabaseSecurityGroup.GroupId
+      IpProtocol: '-1'
+      FromPort: 5432
+      ToPort: 5432
+      SourceSecurityGroupId: !GetAtt WorkshopClientSecurityGroup.GroupId
+    
+  SecurityGroupIngressFromQuickSight:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt AuroraDatabaseSecurityGroup.GroupId
+      IpProtocol: '-1'
+      FromPort: 5432
+      ToPort: 5432
+      SourceSecurityGroupId: !GetAtt QuickSightSecurityGroup.GroupId    
+
+  SecurityGroupIngressSelfClient:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkshopClientSecurityGroup.GroupId
+      IpProtocol: '-1'
+      SourceSecurityGroupId: !GetAtt WorkshopClientSecurityGroup.GroupId
+
+  SecurityGroupIngressSelfDatabase:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt AuroraDatabaseSecurityGroup.GroupId
+      IpProtocol: '-1'
+      SourceSecurityGroupId: !GetAtt AuroraDatabaseSecurityGroup.GroupId
+
+  SecurityGroupIngressSelfQuickSight:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt QuickSightSecurityGroup.GroupId
+      IpProtocol: '-1'
+      SourceSecurityGroupId: !GetAtt QuickSightSecurityGroup.GroupId  
+
+  AuroraDatabaseSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Aurora Serverless
+      Tags:
+        - Key: Name
+          Value: AuroraDatabaseSG
+  
+  WorkshopClientSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 Workshop client
+      Tags:
+        - Key: Name
+          Value: WorkshopClientSG
+
+  QuickSightSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for QuickSight
+      Tags:
+        - Key: Name
+          Value: QuickSightSG
+
+  DBParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      DBClusterParameterGroupName: d2e2ParameterGroup
+      Description: 'DB Parameter Group for PostgreSQL 15.4 with MD5 password encryption'
+      Family: aurora-postgresql15
+      Parameters:
+        password_encryption: md5
+
+  AmpwerksAuroraCluster:
+    Type: AWS::RDS::DBCluster
+    DependsOn:
+      - AuroraDatabaseSecurityGroup
+      - DBParameterGroup
+    Properties:
+      DBClusterIdentifier: !Ref AmpwerksClusterName
+      DBClusterParameterGroupName: !Ref DBParameterGroup
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      DatabaseName: !Ref AmpwerksClusterName
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      Engine: aurora-postgresql
+      EngineVersion: '15.4'
+      Port: !Ref DBPort
+      ServerlessV2ScalingConfiguration:
+        MinCapacity: 2
+        MaxCapacity: 8
+      EnableHttpEndpoint: true
+      VpcSecurityGroupIds:
+        - !GetAtt AuroraDatabaseSecurityGroup.GroupId
+
+  AmpwerksAuroraInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora-postgresql
+      DBInstanceClass: db.serverless
+      DBClusterIdentifier: !Ref AmpwerksAuroraCluster
+      MonitoringInterval: 0
+
+  OhmzioAuroraCluster:
+    Type: AWS::RDS::DBCluster
+    DependsOn: AuroraDatabaseSecurityGroup
+    Properties:
+      DBClusterIdentifier: !Ref OhmzioClusterName
+      DBClusterParameterGroupName: !Ref DBParameterGroup
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      DatabaseName: !Ref OhmzioClusterName
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      Engine: aurora-postgresql
+      EngineVersion: '15.4'
+      Port: !Ref DBPort
+      ServerlessV2ScalingConfiguration:
+        MinCapacity: 2
+        MaxCapacity: 8
+      EnableHttpEndpoint: true
+      VpcSecurityGroupIds:
+        - !GetAtt AuroraDatabaseSecurityGroup.GroupId
+  
+  OhmzioAuroraInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora-postgresql
+      DBInstanceClass: db.serverless
+      DBClusterIdentifier: !Ref OhmzioAuroraCluster
+      MonitoringInterval: 0  
+
+  WorkshopClientRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: WorkshopClientRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+
+  WorkshopClientPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: WorkshopClientPolicy
+      Roles:
+        - Ref: WorkshopClientRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action:
+              - s3:*
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - rds-db:*
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - ec2-instance-connect:*
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - secretsmanager:GetSecretValue
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - cloudformation:SignalResource
+            Resource: !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${AWS::StackName}/*"
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/ec2/workshop-client-logs:*"
+
+  WorkshopClientInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ref: WorkshopClientRole
+
+  ClientUserKey:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: ClientUserKey
+
+  WorkshopClientInstance:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT5M
+    DependsOn:
+      - DestinationBucket
+      - AmpwerksAuroraInstance
+      - OhmzioAuroraInstance
+    Properties:
+      InstanceType: t2.micro
+      IamInstanceProfile:
+        Ref: WorkshopClientInstanceProfile
+      ImageId: !Ref LatestAmiId
+      KeyName: !Ref ClientUserKey
+      Tags:
+        - Key: Name
+          Value: WorkshopClient
+      SecurityGroups:
+        - Ref: WorkshopClientSecurityGroup
+      UserData:
+        Fn::Base64:
+          Fn::Sub:
+            - |
+              #!/bin/bash
+
+              # Redirect standard output and error to the log file
+              exec > >(tee /var/log/userdata.log|logger -t user-data -s 2>/dev/console) 2>&1
+
+              # Install PostgreSQL client
+              sudo dnf update -y
+              sudo dnf install postgresql15.x86_64 postgresql15-server -y
+              sudo dnf install aws-cfn-bootstrap -y
+
+              # Copy tables from d2e-demos-published S3 bucket
+              echo "Caller Identity:"
+              aws sts get-caller-identity
+              echo "Destination Bucket:"
+              DESTINATION_BUCKET="${DestinationBucket}"
+              echo "DESTINATION_BUCKET='$DESTINATION_BUCKET'"
+              aws s3 cp s3://d2e-demos-published/d2e2/ s3://$DESTINATION_BUCKET/ --recursive
+              aws s3 cp s3://d2e-demos-published/d2e2/postgres/ /home/ec2-user/data/postgres/ --recursive
+
+              # Retrieve password from secrets manager, set database creds as temp variables
+              echo "--SETTING CONNECTION VARIABLES--"
+              export DB_PORT="${DBPort}"
+              export DB_USERNAME="${DBUsername}"
+              export DB_PASSWORD="${DBPassword}"
+              export AMPWERKS_DB_ENDPOINT="${AmpwerksEndpoint}"
+              export OHMZIO_DB_ENDPOINT="${OhmzioEndpoint}"
+              export AMPWERKS_DB_NAME="${AmpwerksDBName}"
+              export OHMZIO_DB_NAME="${OhmzioDBName}"
+              export AMPWERKS_SCHEMA="${AmpwerksDBName}"
+              export OHMZIO_SCHEMA="${OhmzioDBName}"
+
+              # Display connection variables
+              echo "--CONNECTION VARIABLES--"
+              echo "DB_USERNAME='$DB_USERNAME'"
+              echo "DB_PASSWORD='$DB_PASSWORD'"
+              echo "DB_PORT='$DB_PORT'"
+              echo "AMPWERKS_DB_NAME='$AMPWERKS_DB_NAME'"
+              echo "AMPWERKS_DB_ENDPOINT='$AMPWERKS_DB_ENDPOINT'"
+              echo "AMPWERKS_SCHEMA='$AMPWERKS_SCHEMA'"
+              echo "OHMZIO_DB_NAME='$OHMZIO_DB_NAME'"
+              echo "OHMZIO_DB_ENDPOINT='$OHMZIO_DB_ENDPOINT'"
+              echo "OHMZIO_SCHEMA='$OHMZIO_SCHEMA'"
+
+              echo "--SETTING SEARCH_PATH--"
+              export PGPASSWORD=$DB_PASSWORD
+              echo "SET search_path TO \"$AMPWERKS_SCHEMA\";" | psql -h "$AMPWERKS_DB_ENDPOINT" -p "$DB_PORT" -U "$DB_USERNAME" -d "$AMPWERKS_DB_NAME"
+              echo "SET search_path TO \"$OHMZIO_SCHEMA\";" | psql -h "$OHMZIO_DB_ENDPOINT" -p "$DB_PORT" -U "$DB_USERNAME" -d "$OHMZIO_DB_NAME"
+
+              # Run sql statements in database
+              echo "--RESTORING FROM PG_DUMP--"
+              echo "--CREATING AMPWERKS DATABASE--"
+              psql -h $AMPWERKS_DB_ENDPOINT -p $DB_PORT -U $DB_USERNAME -d $AMPWERKS_DB_NAME < /home/ec2-user/data/postgres/ampwerksdb.dump
+              echo "--CREATING OHMZIO DATABASE--"
+              psql -h $OHMZIO_DB_ENDPOINT -p $DB_PORT -U $DB_USERNAME -d $OHMZIO_DB_NAME < /home/ec2-user/data/postgres/ohmziodb.dump
+              echo "--DATABASE CREATION COMPLETE--"
+
+              # Signal the wait condition
+              echo "--SIGNALING CFN WAIT CONDITION--"
+              /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WorkshopClientInstance --region ${AWS::Region}
+            - Region:
+                Ref: AWS::Region
+              DestinationBucket:
+                Ref: DestinationBucket
+              AmpwerksEndpoint:
+                Fn::GetAtt: AmpwerksAuroraCluster.Endpoint.Address
+              OhmzioEndpoint:
+                Fn::GetAtt: OhmzioAuroraCluster.Endpoint.Address
+              DBUsername:
+                Ref: DBUsername
+              DBPassword:
+                Ref: DBPassword
+              DBPort:
+                Ref: DBPort
+              OhmzioDBName:
+                Ref: OhmzioClusterName
+              AmpwerksDBName:
+                Ref: AmpwerksClusterName
+
+  QSLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: QSLambdaExecutionRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: 
+                - lambda.amazonaws.com
+                - quicksight.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: AdminPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
+
+  SelfPacedParticipantRole:
+    Type: AWS::IAM::Role
+    Condition: IsSelfPaced
+    Properties:
+      RoleName: !Ref QSUserRoleName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: quicksight.amazonaws.com
+            Action: sts:AssumeRole
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/PowerUserAccess
+      Policies:
+        - PolicyName: QuickSightWorkshopAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - quicksight:*
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:*
+                Resource:
+                  - !Sub arn:aws:s3:::${DestinationBucket}
+                  - !Sub arn:aws:s3:::${DestinationBucket}/*
+              - Effect: Allow
+                Action:
+                  - rds:*
+                Resource:
+                  - !Sub arn:aws:rds:${AWS::Region}:${AWS::AccountId}:cluster:${AmpwerksClusterName}
+                  - !Sub arn:aws:rds:${AWS::Region}:${AWS::AccountId}:cluster:${OhmzioClusterName}
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${DynamoDBTableName}
+
+  SelfPacedQSLambda:
+      Type: AWS::Lambda::Function
+      Condition: IsSelfPaced
+      Properties:
+        FunctionName: SelfPacedQSLambda
+        Handler: index.lambda_handler
+        Runtime: python3.12
+        Timeout: 900
+        Role: !GetAtt QSLambdaExecutionRole.Arn
+        Code:
+          ZipFile: |
+            import os
+            import time
+            import boto3
+            import cfnresponse
+
+            quicksight = boto3.client('quicksight')
+
+            def get_subscription_status(account_id):
+                """Get the current QuickSight subscription status and edition"""
+                try:
+                    response = quicksight.describe_account_subscription(AwsAccountId=account_id)
+                    return (True, 
+                            response['AccountInfo']['AccountSubscriptionStatus'],
+                            response.get('AccountInfo', {}).get('Edition'),
+                            None)
+                except quicksight.exceptions.ResourceNotFoundException:
+                    return False, None, None, None
+                except Exception as e:
+                    return False, None, None, str(e)
+
+            def wait_for_subscription_status(account_id, desired_status, max_attempts=720):
+                """Wait for QuickSight subscription to reach desired status"""
+                for _ in range(max_attempts):
+                    exists, status, edition, error = get_subscription_status(account_id)
+                    print(f"Current status: {status}, Edition: {edition}")
+                    if error:
+                        print(f"Error checking subscription status: {error}")
+                        return False
+                    if exists and status == desired_status:
+                        return True
+                    if not exists and desired_status == "UNSUBSCRIBED":
+                        return True
+                    time.sleep(1)
+                return False
+
+            def create_quicksight_user(account_id, role_arn, email, event):
+                """Create QuickSight user with proper error handling"""
+                
+                session_name = event['ResourceProperties'].get('QSUserSessionName')
+                
+                try:
+                    user_response = quicksight.register_user(
+                        AwsAccountId=account_id,
+                        IdentityType='IAM',
+                        IamArn=role_arn,
+                        UserRole='ADMIN_PRO',
+                        Namespace='default',
+                        SessionName=session_name,
+                        Email=email
+                    )
+                    print(f"User creation response: {user_response}")
+                    return True, None
+                except quicksight.exceptions.ResourceExistsException:
+                    print("User already exists")
+                    return True, None
+                except Exception as e:
+                    return False, str(e)
+
+            def lambda_handler(event, context):
+                print(f"Received event: {event}")
+                
+                account_id = event['ResourceProperties'].get('AwsAccountId')
+                email = event['ResourceProperties'].get('QuickSightEmail')
+                role_arn = event['ResourceProperties'].get('ParticipantRoleArn')
+                request_type = event.get('RequestType')
+
+                if request_type == 'Create':
+                    # Check current subscription status
+                    exists, status, edition, error = get_subscription_status(account_id)
+                    if error:
+                        return cfnresponse.send(event, context, cfnresponse.FAILED, 
+                            {'Error': f"Failed to check subscription status: {error}"})
+
+                    # Handle different subscription scenarios
+                    if not exists or status == "UNSUBSCRIBED":
+                        try:
+                            # Create new subscription
+                            quicksight.create_account_subscription(
+                                AwsAccountId=account_id,
+                                Edition='ENTERPRISE_AND_Q',
+                                AuthenticationMethod='IAM_AND_QUICKSIGHT',
+                                AccountName=account_id,
+                                NotificationEmail=email,
+                                FirstName='Workshop',
+                                LastName='Participant',
+                                EmailAddress=f'QSWS-{account_id}@workshop.aws',
+                                ContactNumber='1234567890'
+                            )
+                            
+                            if not wait_for_subscription_status(account_id, "ACCOUNT_CREATED"):
+                                return cfnresponse.send(event, context, cfnresponse.FAILED,
+                                    {'Error': "Timeout waiting for subscription activation"})
+                        except Exception as e:
+                            return cfnresponse.send(event, context, cfnresponse.FAILED,
+                                {'Error': f"Failed to create subscription: {str(e)}"})
+                    elif status == "ACCOUNT_CREATED":
+                        print(f"Using existing QuickSight subscription with edition: {edition}")
+
+                    # Create user with the self-paced role
+                    success, error = create_quicksight_user(account_id, role_arn, email, event)  # Pass event here
+                    if not success:
+                        return cfnresponse.send(event, context, cfnresponse.FAILED,
+                            {'Error': f"Failed to create user: {error}"})
+
+                    return cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+
+                elif request_type == 'Delete':
+                    if event['ResourceProperties'].get('DeleteOnTermination', 'false').lower() == 'true':
+                        success, error = disable_termination_protection(account_id)
+                        if not success:
+                            return cfnresponse.send(event, context, cfnresponse.FAILED,
+                                {'Error': f"Failed to disable termination protection: {error}"})
+
+                        try:
+                            quicksight.delete_account_subscription(AwsAccountId=account_id)
+                            time.sleep(120)  # Wait for deletion to complete
+                        except Exception as e:
+                            return cfnresponse.send(event, context, cfnresponse.FAILED,
+                                {'Error': f"Failed to delete subscription: {str(e)}"})
+
+                        if not wait_for_subscription_status(account_id, "UNSUBSCRIBED"):
+                            return cfnresponse.send(event, context, cfnresponse.FAILED,
+                                {'Error': "Timeout waiting for subscription deletion"})
+
+                    return cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+
+                elif request_type == 'Update':
+                    return cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+
+                return cfnresponse.send(event, context, cfnresponse.FAILED,
+                    {'Error': f"Unsupported request type: {request_type}"})
+        Environment:
+          Variables:
+            AWS_ACCOUNT_ID: !Ref AWS::AccountId
+
+  QSSubscriptionLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: QSSubscriptionLambda
+      Handler: index.lambda_handler
+      Timeout: 600
+      MemorySize: 512
+      Runtime: python3.12
+      Role: !GetAtt QSLambdaExecutionRole.Arn
+      Code:
+        ZipFile: |
+          import os
+          import time
+          import boto3
+          import botocore
+          import cfnresponse
+
+          quicksight = boto3.client('quicksight')
+          #account_id = context.invoked_function_arn.split(':')[4]
+          account_id = os.environ['AWS_ACCOUNT_ID']
+
+          def is_termination_protection_disabled(account_id):
+              try:
+                  response = quicksight.describe_account_settings(AwsAccountId=account_id)
+                  return not response['AccountSettings']['TerminationProtectionEnabled']
+              except Exception as e:
+                  print(f"Error checking QS termination protection: {str(e)}")
+                  return False
+
+          def lambda_handler(event, context):
+            print(event)
+
+            email = event['ResourceProperties'].get('QuickSightEmail')
+            session_name = event['ResourceProperties'].get('QSUserSessionName')
+            role_name = event['ResourceProperties'].get('QSUserRoleName')
+            print("QS Email: " + email)
+            type_ = event.get('RequestType', 'Undef')
+            res = (True, f"Un error on {type_}. Check logs")
+
+            if type_ == 'Create':
+                try:
+                    try:
+                        response = quicksight.create_account_subscription(
+                            Edition='ENTERPRISE_AND_Q',
+                            AuthenticationMethod='IAM_AND_QUICKSIGHT',
+                            AwsAccountId=account_id,
+                            AccountName=account_id,
+                            NotificationEmail=email,
+                            FirstName = 'Workshop',
+                            LastName = 'Participant',
+                            EmailAddress = 'QSWS-'+account_id+'@workshop.aws',
+                            ContactNumber = '1234567890'
+                        )
+                    except quicksight.exceptions.ResourceExistsException:
+                        print('Already subscribed')
+                    for _ in range(720):
+                        response = quicksight.describe_account_subscription(AwsAccountId=account_id)
+                        print('describe_account_subscription response: ', str(response))
+                        if response.get('AccountInfo', {}).get('AccountSubscriptionStatus') in ('ACCOUNT_CREATED', 'UNSUBSCRIBE_FAILED'):
+                            break
+                        time.sleep(1)
+                    else:
+                        raise Exception(f'timeout while waiting for subscription')
+
+                    # add user for participant
+                    try:
+                        register_user_resp = quicksight.register_user(
+                            AwsAccountId=account_id,
+                            IdentityType='IAM',
+                            IamArn=f'arn:aws:iam::{account_id}:role/{role_name}',
+                            UserRole='ADMIN_PRO',
+                            Namespace='default',
+                            SessionName=session_name,
+                            Email=email
+                        )
+                        print('register_user response: ', str(register_user_resp))
+
+                        time.sleep(30)  # Wait 30 seconds for user registration to propagate
+                    except quicksight.exceptions.ResourceExistsException:
+                        print('user exists already')
+
+                    #delete users that was created on subscription
+                    for u in quicksight.list_users(AwsAccountId=account_id, Namespace='default')['UserList']:
+                        if 'QSLambdaExecutionRole/QSSubscriptionLambda' in u['Arn']:
+                            print(f'deleting {u}')
+                            try:
+                                quicksight.delete_user(AwsAccountId=account_id, Namespace='default', UserName=u['UserName'])
+                                print(f'deleted user {u}')
+                            except Exception as exc:
+                                print(f'was unable to delete qs user {u}: {exc}')
+
+                    return cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')
+                except Exception as exc:
+                    print('Unable to create qs and setup user:', exc)
+                    cfnresponse.send(event, context, cfnresponse.FAILED, {}, '')
+            elif type_ == 'Delete':
+                try:
+                  for attempt in range(1, 4):  # This will run 3 times (1, 2, 3)
+                    print(f'Removing protection attempt {attempt}...')
+                    try:
+                        quicksight.update_account_settings(
+                            AwsAccountId=account_id,
+                            DefaultNamespace='default',
+                            TerminationProtectionEnabled=False,
+                        )
+                        
+                        # Validate if TerminationProtection was actually disabled
+                        if is_termination_protection_disabled(account_id):
+                            print(f'Attempt {attempt} successful. TerminationProtection is now disabled.')
+                            break
+                        else:
+                            print(f'Attempt {attempt} failed: TerminationProtection is still enabled.')
+                    except Exception as e:
+                        print(f'Attempt {attempt} failed: {str(e)}')
+  
+                    if attempt < 3:
+                        print(f'Waiting 30 seconds before next attempt...')
+                        time.sleep(30)
+                    else:
+                        print('All attempts failed')
+                        raise Exception("Failed to disable TerminationProtection after 3 attempts")
+
+                  print('deleting QS')
+                  quicksight.delete_account_subscription(
+                      AwsAccountId=account_id,
+                  )
+                  time.sleep(120)
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')
+                except quicksight.exceptions.ResourceNotFoundException:
+                    print('Already good')
+                    cfnresponse.send(event, context, cfnresponse.SUCCESS, {'Reason': 'Already unsubscribed'})
+                except Exception as exc:
+                    print('Unable to delete qs:', exc)
+                    cfnresponse.send(event, context, cfnresponse.FAILED, {}, '')
+            else:
+                print('Nothing to do')
+                cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+      Environment:
+        Variables:
+          AWS_ACCOUNT_ID: !Ref AWS::AccountId
+
+  QuickSightSubscriptionCustomResource:
+      DependsOn: 
+        - QSLambdaExecutionRole
+      Type: Custom::QuickSightSubscription
+      Properties:
+        ServiceToken: !If 
+          - IsSelfPaced
+          - !GetAtt SelfPacedQSLambda.Arn
+          - !GetAtt QSSubscriptionLambda.Arn
+        AwsAccountId: !Ref AWS::AccountId
+        QuickSightEmail: !Ref QuickSightEmail
+        ParticipantRoleArn: !If 
+          - IsSelfPaced
+          - !GetAtt SelfPacedParticipantRole.Arn
+          - !Sub arn:aws:iam::${AWS::AccountId}:role/${QSUserRoleName}
+        QSUserRoleName: !Ref QSUserRoleName
+        QSUserSessionName: !Ref QSUserSessionName
+        DeleteOnTermination: !Ref DeleteQuickSightOnTermination
+
+  QuickSightVPCConnection:
+    DependsOn:
+      - AuroraDefaultVpcFinder
+      - QSLambdaExecutionRole
+      - QuickSightSecurityGroup    
+      - QuickSightSubscriptionCustomResource
+      - WorkshopClientInstance
+    Type: AWS::QuickSight::VPCConnection
+    Properties:
+      AwsAccountId: !Ref AWS::AccountId
+      Name: qs-vpc-cfn
+      RoleArn: !GetAtt QSLambdaExecutionRole.Arn
+      SecurityGroupIds:
+        - !GetAtt QuickSightSecurityGroup.GroupId
+      SubnetIds: !GetAtt AuroraDefaultVpcFinder.Subnets
+      VPCConnectionId: qs-vpc-cfn
+
+  BedrockActionLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: BedrockAction
+      Handler: index.lambda_handler
+      Runtime: python3.12
+      Timeout: 600
+      Role: !GetAtt QSLambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref DynamoDBTableName
+      Code:
+        ZipFile: |
+          import json
+          import boto3
+          import os
+          dynamodb = boto3.resource('dynamodb')
+          table_name = os.environ['TABLE_NAME']
+          def lambda_handler(event, context):
+              parameters = event.get('parameters', [])
+              # Get the customer id
+              cust_id = None
+              for param in event['parameters']:
+                  if param['name'] == 'cust_id':
+                      cust_id = param['value']
+                      break
+              # Get the DynamoDB table
+              table = dynamodb.Table(table_name)
+              try:
+                  # Retrieve the item from the table using the phone number as the key
+                  response = table.get_item(Key={'cust_id': cust_id})
+                  item = response.get('Item', {})
+                  # Return the item as the Lambda function's response
+                  return format_response(event, json.dumps(item, default=str))
+              except Exception as e:
+                  # Return an error message if there was an issue retrieving the item
+                  return format_response(event, json.dumps({'error': str(e)}))
+          def format_response(event, response):
+              agent = event['agent']
+              actionGroup = event['actionGroup']
+              function = event['function']
+              responseBody =  {
+                  "TEXT": {
+                      "body": response
+                  }
+              }
+              action_response = {
+                  'actionGroup': actionGroup,
+                  'function': function,
+                  'functionResponse': {
+                      'responseBody': responseBody
+                  }
+              }
+              response = {'response': action_response, 'messageVersion': event['messageVersion']}
+              print("Response: {}".format(response))
+              return response
+
+  CustomerDynamoDBTable:
+    DependsOn: WorkshopClientInstance
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref DynamoDBTableName
+      AttributeDefinitions:
+        - 
+          AttributeName: cust_id
+          AttributeType: S
+      KeySchema:
+        -
+          AttributeName: cust_id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      ImportSourceSpecification:
+        InputCompressionType: GZIP
+        InputFormat: DYNAMODB_JSON
+        S3BucketSource:
+          S3Bucket: !Ref DestinationBucket
+          S3KeyPrefix: !Ref DynamoDBSourcePrefix
+
+  VPCConnectionWaitHandle:
+      Type: AWS::CloudFormation::WaitConditionHandle
+
+  VPCConnectionHardTimeout:
+      Type: AWS::CloudFormation::WaitCondition
+      DependsOn: QuickSightVPCConnection
+      Properties:
+        # Set timeout to 8 minutes
+        Timeout: '480'
+        Handle: !Ref VPCConnectionWaitHandle
+        Count: 1
+
+  VPCConnectionCheckLambda:
+      Type: AWS::Lambda::Function
+      Properties:
+        FunctionName: VPCConnectionCheckLambda
+        Handler: index.lambda_handler
+        Runtime: python3.12
+        Timeout: 300
+        Role: !GetAtt QSLambdaExecutionRole.Arn
+        Code:
+          ZipFile: |
+            import boto3
+            import time
+            import cfnresponse
+            import urllib3
+            import json
+
+            def lambda_handler(event, context):
+                if event['RequestType'] != 'Create':
+                    cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+                    return
+
+                quicksight = boto3.client('quicksight')
+                vpc_connection_id = event['ResourceProperties']['VPCConnectionId']
+                account_id = event['ResourceProperties']['AccountId']
+                wait_handle = event['ResourceProperties']['WaitHandle']
+
+                # Wait up to 5 minutes for the VPC connection to be available
+                for _ in range(30):
+                    try:
+                        response = quicksight.describe_vpc_connection(
+                            AwsAccountId=account_id,
+                            VPCConnectionId=vpc_connection_id
+                        )
+                        status = response['VPCConnection']['AvailabilityStatus']
+                        if status == 'AVAILABLE':
+                            # Signal the wait condition handle
+                            http = urllib3.PoolManager()
+                            url = wait_handle
+                            data = json.dumps({
+                                "Status": "SUCCESS",
+                                "Reason": "VPC Connection is available",
+                                "UniqueId": "VPCConnection",
+                                "Data": "Connection Ready"
+                            })
+                            
+                            http.request('PUT', url, body=data)
+                            cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+                            return
+                    except Exception as e:
+                        print(f"Error checking VPC connection: {str(e)}")
+                    time.sleep(10)
+                
+                cfnresponse.send(event, context, cfnresponse.FAILED, {})
+
+  VPCConnectionWaitCondition:
+      Type: Custom::VPCConnectionWait
+      DependsOn: QuickSightVPCConnection
+      Properties:
+        ServiceToken: !GetAtt VPCConnectionCheckLambda.Arn
+        VPCConnectionId: qs-vpc-cfn
+        AccountId: !Ref AWS::AccountId
+        WaitHandle: !Ref VPCConnectionWaitHandle
+
+  OhmzioQSDataSource:
+    DependsOn:
+      - QuickSightVPCConnection
+      - VPCConnectionWaitCondition
+      - VPCConnectionHardTimeout
+    Type: AWS::QuickSight::DataSource
+    Properties:
+      AwsAccountId: !Ref AWS::AccountId
+      Name: ohmzio-database
+      Type: AURORA_POSTGRESQL
+      Credentials:
+        CredentialPair:
+          Username: !Ref DBUsername
+          Password: !Ref DBPassword
+      DataSourceId: ohmzioDataSource
+      DataSourceParameters:
+        AuroraPostgreSqlParameters:
+          Host: !GetAtt OhmzioAuroraCluster.Endpoint.Address
+          Port: !Ref DBPort
+          Database: !Ref OhmzioClusterName
+      Permissions:
+        - Principal: !Join
+            - ''
+            - - 'arn:aws:quicksight:'
+              - !Ref AWS::Region
+              - ':'
+              - !Ref AWS::AccountId
+              - ':user/default/'
+              - !Ref QSUserRoleName
+              - '/'
+              - !Ref QSUserSessionName
+          Actions:
+            - quicksight:UpdateDataSourcePermissions
+            - quicksight:DescribeDataSource
+            - quicksight:DescribeDataSourcePermissions
+            - quicksight:PassDataSource
+            - quicksight:UpdateDataSource
+            - quicksight:DeleteDataSource
+      VpcConnectionProperties:
+        VpcConnectionArn: !GetAtt QuickSightVPCConnection.Arn
+
+  AmpwerksQSDataSource:
+    DependsOn:
+      - QuickSightVPCConnection
+      - VPCConnectionWaitCondition
+      - VPCConnectionHardTimeout  
+    Type: AWS::QuickSight::DataSource
+    Properties:
+      AwsAccountId: !Ref AWS::AccountId
+      Name: ampwerks-database
+      Type: AURORA_POSTGRESQL
+      Credentials:
+        CredentialPair:
+          Username: !Ref DBUsername
+          Password: !Ref DBPassword
+      DataSourceId: ampwerksDataSource
+      DataSourceParameters:
+        AuroraPostgreSqlParameters:
+          Host: !GetAtt AmpwerksAuroraCluster.Endpoint.Address
+          Port: !Ref DBPort
+          Database: !Ref AmpwerksClusterName
+      Permissions:
+        - Principal: !Join
+            - ''
+            - - 'arn:aws:quicksight:'
+              - !Ref AWS::Region
+              - ':'
+              - !Ref AWS::AccountId
+              - ':user/default/'
+              - !Ref QSUserRoleName
+              - '/'
+              - !Ref QSUserSessionName
+          Actions:
+            - quicksight:UpdateDataSourcePermissions
+            - quicksight:DescribeDataSource
+            - quicksight:DescribeDataSourcePermissions
+            - quicksight:PassDataSource
+            - quicksight:UpdateDataSource
+            - quicksight:DeleteDataSource
+      VpcConnectionProperties:
+        VpcConnectionArn: !GetAtt QuickSightVPCConnection.Arn
+
+Outputs:
+  BucketName:
+    Value: !Ref DestinationBucket
+    Description: Name of the S3 bucket
+  DatabaseUserName:
+    Value: !Ref DBUsername
+    Description: Database admin username for Ampwerks and Ohmzio databases
+  VpcConnectionArn:
+    Value: !GetAtt QuickSightVPCConnection.Arn
+  QSUserRoleName:
+    Value: !Ref QSUserRoleName
+  QSUserSessionName:
+    Value: !Ref QSUserSessionName
+  AmpwerksClusterName:
+    Value: !Ref AmpwerksClusterName
+  AmpwerksEndpoint:
+    Value: !GetAtt AmpwerksAuroraCluster.Endpoint.Address
+  OhmzioClusterName:
+    Value: !Ref AmpwerksClusterName
+  OhmzioEndpoint:
+    Value: !GetAtt OhmzioAuroraCluster.Endpoint.Address
