@@ -44,7 +44,7 @@ This is the QuickSight administrator console. From here, QuickSight administrato
 
 ![6](../../images/2/2.1/6.png)
 
-8. Once the assets have been shared successfully, click DONE. Ignore the "What's New in Amazon QuickSight" prompt.
+8. Once the assets have been shared successfully, click **DONE**. Ignore the "What's New in Amazon QuickSight" prompt.
 
 ### Verify the data sources were shared correctly
 
