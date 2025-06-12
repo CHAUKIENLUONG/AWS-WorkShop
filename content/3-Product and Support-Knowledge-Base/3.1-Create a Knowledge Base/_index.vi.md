@@ -28,7 +28,7 @@ Xin lưu ý, AWS liên tục cải tiến và mở rộng khả năng của Bedr
 
    2. Nhấp vào **Model access**
 
-   ![1](/images/3/3.1/1.png)
+   ![1](../../../images/3/3.1/1.png)
 
    3. Trong menu Model access, nhấp vào Enable specific models --hoặc-- Modify model access.
 
@@ -45,7 +45,7 @@ Xin lưu ý, AWS liên tục cải tiến và mở rộng khả năng của Bedr
    Xin lưu ý một số mô hình cơ bản được liệt kê có thể đã được **Access granted**. Điều này sẽ không ảnh hưởng đến khả năng hoàn thành bài thực hành của bạn. Nếu một mô hình được liệt kê trong bước này đã được cấp quyền, hãy tiếp tục yêu cầu truy cập vào tất cả các mô hình cần thiết khác.
    {{%/notice %}}
 
-   ![2](/images/3/3.1/2.png)
+   ![2](../../../images/3/3.1/2.png)
 
    Nhấp vào **Next**.
 
@@ -65,7 +65,7 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
 2. Trong trang Knowledge bases, nhấp vào **Create knowledge base with vector store**.
 
-![3](/images/3/3.1/3.png)
+![3](../../../images/3/3.1/3.png)
 
 3. Bước 1, cung cấp chi tiết cơ sở kiến thức:
 
@@ -79,13 +79,13 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
    3. Giữ nguyên quyền IAM, Query Engine và các cấu hình khác theo mặc định.
 
-   ![4](/images/3/3.1/4.png)
+   ![4](../../../images/3/3.1/4.png)
 
    4. Nhấp vào **Next**.
 
-   ![5](/images/3/3.1/5.png)
+   ![5](../../../images/3/3.1/5.png)
 
-   ![6](/images/3/3.1/6.png)
+   ![6](../../../images/3/3.1/6.png)
 
 4. Bước 2, cấu hình nguồn dữ liệu:
 
@@ -93,7 +93,7 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
    `merger-knowledge-base-data-source`
 
-   ![7](/images/3/3.1/7.png)
+   ![7](../../../images/3/3.1/7.png)
 
    2. Nhấp vào tên bucket customerdata-{uniqueId}. Nhấp vào nút radio bên cạnh data/ để chọn nó làm vị trí cho dữ liệu nguồn. Nhấp Choose.
 
@@ -101,9 +101,9 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
    Nếu bạn không thể tìm thấy bucket của mình, hãy đảm bảo bạn đang ở đúng vùng AWS.
    {{%/notice%}}
 
-   ![8](/images/3/3.1/8.png)
+   ![8](../../../images/3/3.1/8.png)
 
-   ![9](/images/3/3.1/9.png)
+   ![9](../../../images/3/3.1/9.png)
 
    3. Xác minh S3 URI:
 
@@ -115,7 +115,7 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
 5. Bước 3, chọn mô hình embeddings và cấu hình vector store:
 
-   ![10](/images/3/3.1/10.png)
+   ![10](../../../images/3/3.1/10.png)
 
    1. Dưới phần Embeddings model, nhấp vào Select model và sau đó chọn mô hình **Titan Text Embeddings V2** và **On-demand Inference mode**.
 
@@ -143,7 +143,7 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
    3. Nhấp vào **Create knowledge base**.
 
-   ![11](/images/3/3.1/11.png)
+   ![11](../../../images/3/3.1/11.png)
 
    {{%notice success%}}
    Đợi cho cơ sở kiến thức được tạo. AWS sẽ chuẩn bị cơ sở dữ liệu vector trong Amazon OpenSearch Serverless. Quá trình này có thể mất đến 10 phút để hoàn thành.
@@ -153,11 +153,11 @@ Sau khi yêu cầu truy cập mô hình, Amazon Bedrock đang thực hiện "cô
 
 1. Sau khi cơ sở kiến thức được tạo, đợi cho đến khi cơ sở kiến thức được tạo thành công:
 
-![12](/images/3/3.1/12.png)
+![12](../../../images/3/3.1/12.png)
 
 2. Nhấp vào **Go to data source** hoặc cuộn xuống phần Data source. Để đồng bộ hóa, nhấp vào nút radio bên cạnh Data source mà chúng ta đã tạo (tên nên giống với merger-knowledge-base-data-source). Nhấp vào **Sync**. Quá trình này sẽ mất vài phút.
 
-![13](/images/3/3.1/13.png)
+![13](../../../images/3/3.1/13.png)
 
 {{%notice%}}
 Dữ liệu từ bucket S3 của bạn đang được đọc và chia thành "các khối". Theo mặc định, Amazon Bedrock tự động chia dữ liệu nguồn của bạn sao cho mỗi khối chứa 300 token. Mô hình đã chọn, Amazon Titan Embeddings V2, được sử dụng để chuyển đổi dữ liệu của bạn thành vector embeddings cho cơ sở kiến thức.
@@ -165,4 +165,4 @@ Dữ liệu từ bucket S3 của bạn đang được đọc và chia thành "c�
 
 3. Khi quá trình đồng bộ hóa hoàn tất, bạn sẽ nhận được một thông báo khác.
 
-![14](/images/3/3.1/14.png)
+![14](../../../images/3/3.1/14.png)

@@ -25,7 +25,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
     2. On the Topics page that opens, choose **New topic** at upper right.
 
-    ![1](/images/5/5.1/1.png)
+    ![1](../../images/5/5.1/1.png)
   {{%notice note%}}
   If you don't have the option to create a new topic, refresh the page. QuickSight needs your updated credentials.
   {{%/notice%}}
@@ -40,7 +40,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
       `Explore ticket data`
 
-      ![2](/images/5/5.1/2.png)
+      ![2](../../images/5/5.1/2.png)
 
     4. Click **Continue**. On **Select a dataset** screen choose the customer_support_discovery dataset and then choose **Create**.
 
@@ -52,24 +52,24 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
     1. Find the topic under **Amazon Q Topics** page.
 
-    ![3](/images/5/5.1/3.png)
+    ![3](../../images/5/5.1/3.png)
 
     2. Click on Trouble Tickets topic name to open that topic's workspace.
 
 4. You will review your topic settings by clicking on **Start Review** button on **Summary** tab of Trouble Tickets topic.
 
-![4](/images/5/5.1/4.png)
+![4](../../images/5/5.1/4.png)
 
 5. In the popup window, click **DISMISS ALL TASKS**. When asked to confirm, click** DISMISS ALL TASKS AGAIN**.
 
-![5](/images/5/5.1/5.png)
+![5](../../images/5/5.1/5.png)
 
 6. Create **Calculated Fields** to count the number of tickets, customers, and products.
 
     1. Select the **Data** tab, then **Data Fields**. Click the **Add calculated field** 
     button. 
     
-    ![6](/images/5/5.1/6.png)
+    ![6](../../images/5/5.1/6.png)
 
     2. Enter **Name** in the calculations editor as :
 
@@ -81,7 +81,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
     `distinct_count({Ticket Id})`
 
-    ![7](/images/5/5.1/7.png)
+    ![7](../../images/5/5.1/7.png)
 
     4. Save your calculation by choosing **Save** at upper right.
 
@@ -93,7 +93,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
         `distinct_count({Customer Id})`
 
-        ![8](/images/5/5.1/8.png)
+        ![8](../../images/5/5.1/8.png)
 
         2. Distinct Products Count
   
@@ -101,11 +101,11 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
         `distinct_count({Product Id})`
 
-      ![9](/images/5/5.1/9.png)
+      ![9](../../images/5/5.1/9.png)
 
 7. In the **Data Fields** section, adjust the filter to show **All fields**.
 
-![10](/images/5/5.1/10.png)
+![10](../../images/5/5.1/10.png)
 
 8. In the **Data Fields** section, under **Include**, toggle the button ON and OFF to include/exclude fields for your topic. Start by excluding the unique identifiers: **Agent Id, Customer Id**, and **Product Id**.
 
@@ -117,7 +117,7 @@ In this step, we will create and test a **Q Topic** on the customer_support_disc
 
 10. Click the **V** on the far right of the data field to expand it. Make sure the **Ticket Date** has a Role of **Dimension** and a Semantic Type of **Date**. Enter a description.
 
-![11](/images/5/5.1/11.png)
+![11](../../images/5/5.1/11.png)
 
 11. Use the table below to complete the review of the data fields in the Q topic. Include:
 
@@ -167,17 +167,17 @@ Remember, your field names for "Customer Name" and "Product Name" may be differe
 
 1. After updating the data fields, filter the view to show only the included fields. 
 
-![12](/images/5/5.1/12.png)
+![12](../../images/5/5.1/12.png)
 
 2. Verify that your included data fields match the image below. 
 
-![13](/images/5/5.1/13.png)
+![13](../../images/5/5.1/13.png)
 
 ### Test your topic:
 
 1. In the the center of the top blue bar on your **topic** screen, click **Ask a question about Trouble Tickets**. Let's use this **topic** to uncover additional insights by asking questions in natural language. 
 
-![14](/images/5/5.1/14.png)
+![14](../../images/5/5.1/14.png)
 
 2. In the **Amazon Q** bar, copy the following prompt, and click **ASK**
 
@@ -185,7 +185,7 @@ Remember, your field names for "Customer Name" and "Product Name" may be differe
 
 Here is a sample generative response: 
 
-![15](/images/5/5.1/15.png)
+![15](../../images/5/5.1/15.png)
 
 {{%notice note%}}
 If the topic returns a blank window, try refreshing the page and resubmitting the question.
@@ -205,8 +205,8 @@ Tip - To help you form questions, think Who, What, Where, When and Why.
 
 4. When you are finished asking questions, close **Ask Questions** screen by clicking behind the popup window. This will return to the **Trouble Tickets** summary tab.
 
-![16](/images/5/5.1/16.png)
+![16](../../images/5/5.1/16.png)
 
 5. Click on **User Activity** tab to see user statistics. This will provide data on every question asked and how well Q responded. In this tab you can analyze topic performance and update topic details based on feedback. 
 
-![17](/images/5/5.1/17.png)
+![17](../../images/5/5.1/17.png)

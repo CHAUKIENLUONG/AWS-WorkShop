@@ -37,6 +37,6 @@ This lab walks you through the process of using Agents for Amazon Bedrock to add
 
 5. **Prompt templates**. Prompt templates are the basis for creating prompts to be provided to the FM. Agents for Amazon Bedrock exposes the default four base prompt templates that can be edited to customize your agent's behavior.
 
-![1](/images/4/1.png)
+![1](../images/4/1.png)
 
 This customizable and extensible agent architecture empowers users to create intelligent assistants tailored to their unique needs and requirements.

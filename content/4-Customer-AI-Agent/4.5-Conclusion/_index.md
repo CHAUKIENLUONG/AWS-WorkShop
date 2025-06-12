@@ -24,7 +24,7 @@ In this lab, you:
 
 To explore additional customer data to use as agent inputs, you can browse the **Amazon DynamoDB** table directly. Use this link to browse the [all-customers table](https://us-west-2.console.aws.amazon.com/dynamodbv2/home?region=us-west-2#item-explorer?maximize=true&operation=SCAN&table=all-customers) .
 
-![1](/images/4/4.5/1.png)
+![1](../../images/4/4.5/1.png)
 
 In the lab, you configured an action group to call a Lamdba function. The sample lamba function retrieved additional customer information from **Amazon DynamoDB** and returned it to the agent for additional customer-specific context.
 

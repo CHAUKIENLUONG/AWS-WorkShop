@@ -28,7 +28,7 @@ Trong bài thực hành này, bạn đã:
 
 Khi bạn tạo cơ sở kiến thức, một kho lưu trữ vector OpenSearch Serverless đã được tạo.
 
-![1](/images/3/3.3/1.png)
+![1](../../../images/3/3.3/1.png)
 
 Khám phá bộ sưu tập để theo dõi hiệu suất. [Bộ sưu tập OpenSearch Serverless](https://us-west-2.console.aws.amazon.com/aos/home?region=us-west-2#opensearch/collections)
 

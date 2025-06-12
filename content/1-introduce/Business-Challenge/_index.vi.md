@@ -19,7 +19,7 @@ Ohmzio, một công ty thiết bị nhà thông minh, đã mua lại Ampwerks, m
 
 ### Tổng quan giải pháp
 
-![1](/images/1/1.2/1.jpg)
+![1](../../../images/1/1.2/1.jpg)
 
 ### Các bước đã hoàn thành
 

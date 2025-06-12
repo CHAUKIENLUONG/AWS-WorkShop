@@ -37,6 +37,6 @@ Bài thực hành này hướng dẫn bạn qua quy trình sử dụng Agents fo
 
 5. **Mẫu lời nhắc**. Mẫu lời nhắc là cơ sở để tạo ra các lời nhắc được cung cấp cho FM. Agents for Amazon Bedrock cung cấp sẵn bốn mẫu lời nhắc cơ bản mặc định có thể được chỉnh sửa để tùy chỉnh hành vi của agent của bạn.
 
-![1](/images/4/1.png)
+![1](../../images/4/1.png)
 
 Kiến trúc agent có thể tùy chỉnh và mở rộng này cho phép người dùng tạo ra các trợ lý thông minh phù hợp với nhu cầu và yêu cầu riêng của họ.

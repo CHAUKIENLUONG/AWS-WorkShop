@@ -30,7 +30,7 @@ In this lab, you will setup the agent's purpose and select the appropriate found
 
 `AI agent to retrieve customer information and ticket history to further help support representatives to resolve customer issues.`
 
-![1](/images/4/4.1/1.png)
+![1](../../images/4/4.1/1.png)
 
 3. Click **Create**.
 
@@ -44,7 +44,7 @@ In this lab, you will setup the agent's purpose and select the appropriate found
 
     3. On the Select model section, choose **Anthropic** and then choose **Claude 3.5 Sonnet** in the dropdown menu. Click **Apply**.
 
-    ![2](/images/4/4.1/2.png)
+    ![2](../../images/4/4.1/2.png)
 
     4.  In **Instructions for the Agent**, enter details to instruct the agent on what it should do and how it should interact with users. These instructions will be used in the orchestration prompt template. Here are the instructions to use for the agent:
 
@@ -62,23 +62,23 @@ In this lab, you will setup the agent's purpose and select the appropriate found
 
     6.  Under **User input**, select the radio button for **Enabled**. This will allow the agent to prompt the user for additional information. Don't change any other additional settings.
 
-    ![3](/images/4/4.1/3.png)
+    ![3](../../images/4/4.1/3.png)
 
 2.  Click the **Save** button at the top before moving to the next step. You will receive a message when the agent is successfully updated.
 
-![4](/images/4/4.1/4.png)
+![4](../../images/4/4.1/4.png)
 
 {{%notice note%}}
 Notice the messages to prepare the agent before testing. You will prepare the agent at a later step.
 {{%/notice%}}
 
-![5](/images/4/4.1/5.png)
+![5](../../images/4/4.1/5.png)
 
 3. Skip **Action groups** for now and scroll down to **Knowledge bases**.
 
 4. In the **Knowledge bases** section, select **Add** to associate a knowledge base with your agent.
 
-![6](/images/4/4.1/6.png)
+![6](../../images/4/4.1/6.png)
 
 1. For **Select knowledge base**, choose your knowledge base from the dropdown menu. You should see the merger knowledge base you created in an earlier lab.
 
@@ -90,8 +90,8 @@ Notice the messages to prepare the agent before testing. You will prepare the ag
 
 4. Click **Save and exit**.
 
-![7](/images/4/4.1/7.png)
+![7](../../images/4/4.1/7.png)
 
 5. In the **Agent overview** screen, note the entry under **Agent ARN**. It should look similar to the screenshot below. This is the ARN used to identify your agent. Copy this value for the next section; you will need it in order to grant this agent permission to invoke a Lambda function.
 
-![8](/images/4/4.1/8.png)
+![8](../../images/4/4.1/8.png)

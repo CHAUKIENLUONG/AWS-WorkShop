@@ -19,7 +19,7 @@ Ohmzio, a smart home device company, has acquired Ampwerks, an electric vehicle 
 
 ### Solution Overview
 
-![1](/images/1/1.2/1.jpg)
+![1](../../images/1/1.2/1.jpg)
 
 ### Steps that have been completed
 

@@ -30,7 +30,7 @@ Trong bài thực hành này, bạn sẽ thiết lập mục đích của agent 
 
 `AI agent để truy xuất thông tin khách hàng và lịch sử ticket nhằm hỗ trợ nhân viên support giải quyết các vấn đề của khách hàng.`
 
-![1](/images/4/4.1/1.png)
+![1](../../../images/4/4.1/1.png)
 
 3. Nhấp **Create**.
 
@@ -44,7 +44,7 @@ Trong bài thực hành này, bạn sẽ thiết lập mục đích của agent 
 
     3. Ở phần Select model, chọn **Anthropic** và sau đó chọn **Claude 3.5 Sonnet** trong menu thả xuống. Nhấp **Apply**.
 
-    ![2](/images/4/4.1/2.png)
+    ![2](../../../images/4/4.1/2.png)
 
     4. Trong **Instructions for the Agent**, nhập chi tiết để hướng dẫn agent về những gì nó nên làm và cách tương tác với người dùng. Những hướng dẫn này sẽ được sử dụng trong mẫu orchestration prompt. Dưới đây là hướng dẫn cần sử dụng cho agent:
 
@@ -63,23 +63,23 @@ Trong bài thực hành này, bạn sẽ thiết lập mục đích của agent 
 
     6. Trong phần **User input**, chọn radio button **Enabled**. Điều này sẽ cho phép agent nhắc người dùng cung cấp thêm thông tin. Không thay đổi bất kỳ cài đặt bổ sung nào khác.
 
-    ![3](/images/4/4.1/3.png)
+    ![3](../../../images/4/4.1/3.png)
 
 2. Nhấp nút **Save** ở trên cùng trước khi chuyển sang bước tiếp theo. Bạn sẽ nhận được thông báo khi agent được cập nhật thành công.
 
-![4](/images/4/4.1/4.png)
+![4](../../../images/4/4.1/4.png)
 
 {{%notice note%}}
 Lưu ý các thông báo để chuẩn bị agent trước khi kiểm tra. Bạn sẽ chuẩn bị agent ở bước sau.
 {{%/notice%}}
 
-![5](/images/4/4.1/5.png)
+![5](../../../images/4/4.1/5.png)
 
 3. Bỏ qua phần **Action groups** và cuộn xuống **Knowledge bases**.
 
 4. Trong phần **Knowledge bases**, chọn **Add** để liên kết knowledge base với agent của bạn.
 
-![6](/images/4/4.1/6.png)
+![6](../../../images/4/4.1/6.png)
 
   1. Đối với **Select knowledge base**, chọn knowledge base của bạn từ menu thả xuống. Bạn sẽ thấy knowledge base merger mà bạn đã tạo trong bài thực hành trước đó.
 
@@ -91,8 +91,8 @@ Lưu ý các thông báo để chuẩn bị agent trước khi kiểm tra. Bạn
 
   4. Nhấp **Save and exit**.
 
-  ![7](/images/4/4.1/7.png)
+  ![7](../../../images/4/4.1/7.png)
 
   5. Trong màn hình **Agent overview**, lưu ý mục **Agent ARN**. Nó sẽ trông giống như ảnh chụp màn hình bên dưới. Đây là ARN được sử dụng để xác định agent của bạn. Sao chép giá trị này cho phần tiếp theo; bạn sẽ cần nó để cấp quyền cho agent này gọi hàm Lambda.
 
-  ![8](/images/4/4.1/8.png)
+  ![8](../../../images/4/4.1/8.png)

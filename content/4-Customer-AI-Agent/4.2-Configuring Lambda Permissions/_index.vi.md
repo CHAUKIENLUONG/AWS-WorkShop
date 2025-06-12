@@ -26,15 +26,15 @@ Trong bài lab này, chúng ta sẽ sử dụng agent của mình để gọi m�
 
 2. Trong danh sách các hàm, chọn tên hàm **BedrockAction**. Hàm để truy xuất dữ liệu khách hàng đã được tạo và triển khai trước bài lab. Chúng ta sẽ không thay đổi bất kỳ mã nào, chỉ thiết lập quyền.
 
-![1](/images/4/4.2/1.png)
+![1](../../../images/4/4.2/1.png)
 
 3. Tab Code được mở theo mặc định. Chọn Configuration. Tiếp theo, trong menu bên trái, chọn **Permissions**. Nó sẽ là mục thứ ba từ trên xuống.
 
-![2](/images/4/4.2/2.png)
+![2](../../../images/4/4.2/2.png)
 
 4. Cuộn xuống phần **Resource-based policy statements**.
 
-![3](/images/4/4.2/3.png)
+![3](../../../images/4/4.2/3.png)
 
 5. Nhấp vào **Add permissions**.
 
@@ -55,14 +55,14 @@ Trong bài lab này, chúng ta sẽ sử dụng agent của mình để gọi m�
 
     5. Trong ô **Source ARN**, dán ARN của Agent mà bạn đã sao chép sau khi tạo agent. Nó sẽ có dạng tương tự như:
 
-    ![4](/images/4/4.2/4.png)
+    ![4](../../../images/4/4.2/4.png)
 
     6. Trong danh sách **Action**, chọn **lambda:InvokeFunction**.
 
     7. Nhấp **Save**.
 
-    ![5](/images/4/4.2/5.png)
+    ![5](../../../images/4/4.2/5.png)
 
 7. Xác minh rằng chính sách dựa trên tài nguyên Lambda của bạn đã được lưu.
 
-![6](/images/4/4.2/6.png)
+![6](../../../images/4/4.2/6.png)

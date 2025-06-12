@@ -24,7 +24,7 @@ Trong bài thực hành này, bạn đã:
 
 Để khám phá thêm dữ liệu khách hàng để sử dụng làm đầu vào cho agent, bạn có thể duyệt bảng **Amazon DynamoDB** trực tiếp. Sử dụng liên kết này để duyệt [bảng all-customers](https://us-west-2.console.aws.amazon.com/dynamodbv2/home?region=us-west-2#item-explorer?maximize=true&operation=SCAN&table=all-customers).
 
-![1](/images/4/4.5/1.png)
+![1](../../../images/4/4.5/1.png)
 
 Trong bài thực hành, bạn đã cấu hình một nhóm hành động để gọi hàm Lambda. Hàm Lambda mẫu đã truy xuất thông tin khách hàng bổ sung từ **Amazon DynamoDB** và trả về cho agent để bổ sung ngữ cảnh cụ thể cho khách hàng.
 

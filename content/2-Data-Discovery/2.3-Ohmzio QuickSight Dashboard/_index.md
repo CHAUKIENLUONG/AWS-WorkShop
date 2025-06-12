@@ -18,7 +18,7 @@ In this section, we will create an analysis for analyzing the types of inquiries
 
 2. Click the ellipsis menu button ⋮ next to customer_support_discovery dataset, and then choose **CREATE ANALYSIS**.
 
-![1](/images/2/2.3/1.png)
+![1](../../images/2/2.3/1.png)
 
 3. On the **New sheet** pop-up, leave **Interactive sheet** selected and click the **CREATE** button.
 
@@ -28,7 +28,7 @@ In this section, we will create an analysis for analyzing the types of inquiries
 
 2. Click the empty visual and change the visual type to line chart.
 
-![2](/images/2/2.3/2.png)
+![2](../../images/2/2.3/2.png)
 
 3. From the **fields list** in **primary left pane**:
 
@@ -39,7 +39,7 @@ In this section, we will create an analysis for analyzing the types of inquiries
 
 5. Click the ellipsis against ticket_id field from the **VALUE** section of visual to access the visual-level field menu to change the aggregation from count to count distinct to get count of unique tickets.
 
-![3](/images/2/2.3/3.gif)
+![3](../../images/2/2.3/3.gif)
 
 {{%notice%}}
 The analysis of historical data reveals overall an upward trend in ticket volume over the months, indicating an increasing demand for support services.
@@ -51,14 +51,14 @@ The analysis of historical data reveals overall an upward trend in ticket volume
 
 2. Choose Add on the application bar, and then choose Add visual. Select the Donut chart from the menu.
 
-![4](/images/2/2.3/4.png)
+![4](../../images/2/2.3/4.png)
 
 3. From the Fields list in primary left pane add necessary fields in the following order:
 
    * drag category to Group/Color field
    * drag ticket_id to Value field
 
-![5](/images/2/2.3/5.gif)
+![5](../../images/2/2.3/5.gif)
 
 {{% notice %}}
 The analysis show Lighting category has most volume of tickets.
@@ -69,7 +69,7 @@ The analysis show Lighting category has most volume of tickets.
 
 2. Choose Add on the application bar, and then choose Add visual. Select **Tree map** from the menu.
 
-![6](/images/2/2.3/6.png)
+![6](../../images/2/2.3/6.png)
 
 3 From the Fields list in primary left pane add necessary fields in the following order:
 
@@ -85,7 +85,7 @@ You may see name[customers] instead of name[products]. Because both the customer
 The bracket notation for products indicates that the attribute originates from the products table. When joining tables that have the same column names, QuickSight resolves this by adding the table name. If you joined support_tickets with the products table before you joined with the customers table, your column names will be different.
 {{% /notice %}}
 
-![7](/images/2/2.3/7.gif)
+![7](../../images/2/2.3/7.gif)
 
 {{%notice%}}
 The analysis shows **Ohmzio Smart Plug** product has most volume of tickets.
@@ -97,15 +97,15 @@ The analysis shows **Ohmzio Smart Plug** product has most volume of tickets.
 
 2. Click on the Tree map visual to indicate this is the visual we want to base our insights from (once selected, will have a black box around perimeter). Next, click the **Insights** icon (light bulb shaped icon). The Insights panel opens and displays a list of ready-to-use suggested insights. Scroll down to preview the insights we can add to our dashboard based on the data and trends in the Tree map visual.
 
-![8](/images/2/2.3/8.png)
+![8](../../images/2/2.3/8.png)
 
 3. Add a suggested insight (such as, **Top 3 Products by Ticket Count**) to your analysis by choosing the plus sign (+) near the insight title.
 
-![9](/images/2/2.3/9.png)
+![9](../../images/2/2.3/9.png)
 
 4. You can resize the insights to be smaller, and move them on top of your **Tree Map** visual.
 
-![10](/images/2/2.3/10.gif)
+![10](../../images/2/2.3/10.gif)
 
 {{%notice%}}
 The auto-generated insights reveal that the Smart Plug and Smart Vent products have the most volume of tickets.

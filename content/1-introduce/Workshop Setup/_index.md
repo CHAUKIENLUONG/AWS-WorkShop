@@ -103,14 +103,14 @@ If the validation script identified any issues:
 For the remainder of the workshop, you will need to use an IAM user role created by the baseline template in the previous step. Using this role will ensure you have the necessary permissions to complete the workshop. If your IAM user is unable to asume IAM user roles, please contact your AWS administrator.
 
 1. Click on your user name and account ID in the upper right. In the menu, select **Switch Role**.
-![1](/images/1/1.1/1.png)
+![1](../../images/1/1.1/1.png)
 2. Fill in the Switch Role form:
 
 - Add in the Account ID you are using for the workshop.
 - Paste this role name into the IAM role name: aidlWSParticipantRole
 - Select a color to associate with this role.
 - Click **Switch Role**.
-![2](/images/1/1.1/2.png)
+![2](../../images/1/1.1/2.png)
 
 3. Verify you have correctly assumed the role:
 
@@ -118,7 +118,7 @@ For the remainder of the workshop, you will need to use an IAM user role created
 - Check in the upper right to verify you see WSParticipantRole @ [YourAccountID]
 - Navigate to the [console homepage](https://us-west-2.console.aws.amazon.com/console?region=us-west-2)
 
-![3](/images/1/1.1/3.png)
+![3](../../images/1/1.1/3.png)
 
 ### Important Considerations
 

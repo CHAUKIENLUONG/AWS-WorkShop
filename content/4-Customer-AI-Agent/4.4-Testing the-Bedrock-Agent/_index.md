@@ -26,7 +26,7 @@ To help troubleshoot your agent's behavior, **Agents for Amazon Bedrock** provid
 
 3. Before testing the agent, you must prepare it. In the Test window, select **Prepare**.
 
-![1](/images/4/4.4/1.png)
+![1](../../images/4/4.4/1.png)
 
 {{%notice note%}}
 Every time you update the working draft, you must prepare the agent to package the agent with your latest changes. As a best practice, we recommend that you always check your agent's Last prepared time in the Agent overview section of the Working draft page to verify that you're testing your agent with the latest configurations.
@@ -38,13 +38,13 @@ Every time you update the working draft, you must prepare the agent to package t
 
 5. While you wait for the response to generate or after it is generated, select **Show trace**. 
 
-    ![2](/images/4/4.4/2.png)
+    ![2](../../images/4/4.4/2.png)
 
     Trace shows details for each step of the agent's orchestration process, including the prompt, inference configurations, and agent's reasoning process for each step and usage of its action groups and knowledge bases.
 
     1. In the **Orchestration and knowledge base** tab, Expand **Trace Step 1** and scroll down. Notice the additional context provided and how the prompt is engineered to create the best response from the model.
 
-    ![3](/images/4/4.4/3.png)
+    ![3](../../images/4/4.4/3.png)
 
     When provided with a the simple greeting, the agent responds with a simple greeting back to the user.
 
@@ -56,11 +56,11 @@ Every time you update the working draft, you must prepare the agent to package t
 
     2. In the Orchestration and knowledge base, Trace Step 2, note how the agent decided to invoke the function.
 
-    ![4](/images/4/4.4/4.png)
+    ![4](../../images/4/4.4/4.png)
 
     3. In the final response, you should see the details for this customer, including products purchased and support tickets from both Ampwerks and Ohmzio.
 
-    ![5](/images/4/4.4/5.png)
+    ![5](../../images/4/4.4/5.png)
 
   {{%notice note%}}
   Remember, your output may look different based on variances in the large language models.
@@ -75,7 +75,7 @@ Every time you update the working draft, you must prepare the agent to package t
 
     2. Notice how the agent uses the customer information as well as related support tickets from the knowledge base to create a response. 
     
-    ![6](/images/4/4.4/6.png)
+    ![6](../../images/4/4.4/6.png)
 
     Also notice the [1] in the response. Click the footnote to show the knowledge base document used to find the answer. In this instance, the agent was able to find relevant information from past Ohmzio support tickets.
 
@@ -87,11 +87,11 @@ The agent responds with additional troubleshooting tips, including a suggestion 
 
 `How do I recalibrate the smart feeder?`
 
-![7](/images/4/4.4/7.png)
+![7](../../images/4/4.4/7.png)
 
 `The recalibration worked. The feeder is now dispensing the correct amount of food.`
 
-![8](/images/4/4.4/8.png)
+![8](../../images/4/4.4/8.png)
 
 9. Experiment by asking a few more questions. To start a new conversation, use additional customer IDs that can be found in the DynamoDB table. Here are a few to try:
 

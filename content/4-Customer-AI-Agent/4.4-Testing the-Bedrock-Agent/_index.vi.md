@@ -26,7 +26,7 @@ Trong giao diện Amazon Bedrock, bạn mở cửa sổ kiểm thử và cung c�
 
 3. Trước khi kiểm thử agent, bạn phải chuẩn bị nó. Trong cửa sổ Kiểm thử, chọn **Prepare**.
 
-![1](/images/4/4.4/1.png)
+![1](../../../images/4/4.4/1.png)
 
 {{%notice note%}}
 Mỗi khi bạn cập nhật bản nháp, bạn phải chuẩn bị agent để đóng gói agent với những thay đổi mới nhất của bạn. Như một phương pháp hay nhất, chúng tôi khuyến nghị bạn luôn kiểm tra thời gian Chuẩn bị lần cuối của agent trong phần Tổng quan Agent của trang Bản nháp để xác minh rằng bạn đang kiểm thử agent với cấu hình mới nhất.
@@ -38,13 +38,13 @@ Mỗi khi bạn cập nhật bản nháp, bạn phải chuẩn bị agent để 
 
 5. Trong khi bạn đợi phản hồi được tạo ra hoặc sau khi nó được tạo ra, chọn **Show trace**.
 
-    ![2](/images/4/4.4/2.png)
+    ![2](../../../images/4/4.4/2.png)
 
     Dấu vết hiển thị chi tiết cho từng bước của quy trình điều phối agent, bao gồm lời nhắc, cấu hình suy luận và quy trình lập luận của agent cho từng bước và việc sử dụng nhóm hành động và cơ sở kiến thức của nó.
 
     1. Trong tab **Orchestration and knowledge base**, Mở rộng **Trace Step 1** và cuộn xuống. Chú ý ngữ cảnh bổ sung được cung cấp và cách lời nhắc được thiết kế để tạo ra phản hồi tốt nhất từ mô hình.
 
-    ![3](/images/4/4.4/3.png)
+    ![3](../../../images/4/4.4/3.png)
 
     Khi được cung cấp một lời chào đơn giản, agent đáp lại với một lời chào đơn giản cho người dùng.
 
@@ -56,11 +56,11 @@ Mỗi khi bạn cập nhật bản nháp, bạn phải chuẩn bị agent để 
 
     2. Trong phần Orchestration and knowledge base, Trace Step 2, lưu ý cách agent quyết định gọi hàm.
 
-    ![4](/images/4/4.4/4.png)
+    ![4](../../../images/4/4.4/4.png)
 
     3. Trong phản hồi cuối cùng, bạn sẽ thấy chi tiết về khách hàng này, bao gồm sản phẩm đã mua và ticket hỗ trợ từ cả Ampwerks và Ohmzio.
 
-    ![5](/images/4/4.4/5.png)
+    ![5](../../../images/4/4.4/5.png)
 
   {{%notice note%}}
   Hãy nhớ rằng đầu ra của bạn có thể trông khác do sự khác biệt trong các mô hình ngôn ngữ lớn.
@@ -75,7 +75,7 @@ Mỗi khi bạn cập nhật bản nháp, bạn phải chuẩn bị agent để 
 
     2. Chú ý cách agent sử dụng thông tin khách hàng cũng như các ticket hỗ trợ liên quan từ cơ sở kiến thức để tạo phản hồi.
     
-    ![6](/images/4/4.4/6.png)
+    ![6](../../../images/4/4.4/6.png)
 
     Cũng lưu ý đến [1] trong phản hồi. Nhấp vào chú thích để hiển thị tài liệu cơ sở kiến thức được sử dụng để tìm câu trả lời. Trong trường hợp này, agent đã có thể tìm thấy thông tin liên quan từ các ticket hỗ trợ Ohmzio trước đây.
 
@@ -87,11 +87,11 @@ Agent trả lời với các mẹo khắc phục sự cố bổ sung, bao gồm 
 
 `How do I recalibrate the smart feeder?`
 
-![7](/images/4/4.4/7.png)
+![7](../../../images/4/4.4/7.png)
 
 `The recalibration worked. The feeder is now dispensing the correct amount of food.`
 
-![8](/images/4/4.4/8.png)
+![8](../../../images/4/4.4/8.png)
 
 9. Thử nghiệm bằng cách đặt thêm một vài câu hỏi. Để bắt đầu một cuộc trò chuyện mới, sử dụng các ID khách hàng bổ sung có thể được tìm thấy trong bảng DynamoDB. Dưới đây là một số ID để thử:
 

@@ -18,7 +18,7 @@ Action groups can be defined to further specialize the agent's functionality, al
 
 3. Select **Edit in Agent Builder**.
 
-![1](/images/4/4.3/1.png)
+![1](../../images/4/4.3/1.png)
 
 4. Scroll down to **Action groups**.
 
@@ -26,7 +26,7 @@ Action groups can be defined to further specialize the agent's functionality, al
 Bedrock may have created a default action group ("UserInputAction") for you. If so, click on the UserInputAction action group and follow the steps below to edit it. If you do not have any existing action group, click Add to create a new one.
 {{%/notice%}}
 
-![2](/images/4/4.3/2.png)
+![2](../../images/4/4.3/2.png)
 
 
 5. Click **Add**.
@@ -64,12 +64,12 @@ Bedrock may have created a default action group ("UserInputAction") for you. If 
 
   4. Add parameter
 
-   ![3](/images/4/4.3/3.png)
+   ![3](../../images/4/4.3/3.png)
   {{%notice note%}}
   Click the check after editing each parameter attribute.
   {{%/notice%}}
 
-  ![4](/images/4/4.3/4.png)
+  ![4](../../images/4/4.3/4.png)
 
   1. Name:
 
@@ -87,17 +87,17 @@ Bedrock may have created a default action group ("UserInputAction") for you. If 
 
   `True`
 
-  ![5](/images/4/4.3/5.png)
+  ![5](../../images/4/4.3/5.png)
 
-  ![6](/images/4/4.3/6.png)
+  ![6](../../images/4/4.3/6.png)
 
   5. Click **Create**.
 
 7. Verify that the action group was created.
 
-![7](/images/4/4.3/7.png)
+![7](../../images/4/4.3/7.png)
 
 8. Scroll back to the top and click **Save and exit**.
 
 9. Verify that the agent was updated. 
-![8](/images/4/4.3/8.png)
+![8](../../images/4/4.3/8.png)

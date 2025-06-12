@@ -46,7 +46,7 @@ Dữ liệu productinfo/ và support/ sẽ cung cấp dữ liệu ngữ cảnh c
 
 Để tăng cường nỗ lực khám phá, bạn sẽ sử dụng Amazon Bedrock: Knowledge Bases để tạo nguồn dữ liệu được chỉ định cụ thể (dữ liệu sản phẩm và hỗ trợ cho cả hai công ty) để thực hiện Retrieval Augmented Generation (RAG) với Foundation Model (FM) trên nguồn dữ liệu chúng ta xác định. Đây là kiến trúc logic của kiến trúc RAG sử dụng Knowledge Bases và các khái niệm chính:
 
-![1](/images/3/1.png)
+![1](../../images/3/1.png)
 
 * **Retrieval Augmented Generation (RAG)** là một phương pháp trong trí tuệ nhân tạo kết hợp khả năng của hai thành phần chính: hệ thống truy xuất và mô hình tổng hợp. Phương pháp này đặc biệt được sử dụng trong các tác vụ xử lý ngôn ngữ tự nhiên (NLP), như trả lời câu hỏi, tạo nội dung và hệ thống đối thoại. Mục tiêu của RAG là nâng cao chất lượng, độ phù hợp và độ chính xác của đầu ra của mô hình tổng hợp bằng cách kết hợp động kiến thức bên ngoài được truy xuất trong thời gian thực.
 

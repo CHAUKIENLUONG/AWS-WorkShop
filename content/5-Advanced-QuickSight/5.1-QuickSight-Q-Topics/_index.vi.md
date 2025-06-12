@@ -25,7 +25,7 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
     2. Trên trang Topics mở ra, chọn **New topic** ở góc trên bên phải.
 
-    ![1](/images/5/5.1/1.png)
+    ![1](../../../images/5/5.1/1.png)
   {{%notice note%}}
   Nếu bạn không thấy tùy chọn tạo topic mới, hãy làm mới trang. QuickSight cần thông tin xác thực cập nhật của bạn.
   {{%/notice%}}
@@ -40,7 +40,7 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
       `Khám phá dữ liệu vé`
 
-      ![2](/images/5/5.1/2.png)
+      ![2](../../../images/5/5.1/2.png)
 
     4. Nhấp vào **Tiếp tục**. Trên màn hình **Chọn bộ dữ liệu**, chọn bộ dữ liệu customer_support_discovery và sau đó chọn **Tạo**.
 
@@ -52,23 +52,23 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
     1. Tìm chủ đề dưới trang **Amazon Q Topics**.
 
-    ![3](/images/5/5.1/3.png)
+    ![3](../../../images/5/5.1/3.png)
 
     2. Nhấp vào tên chủ đề Vé sự cố để mở không gian làm việc của chủ đề đó.
 
 4. Bạn sẽ xem xét cài đặt chủ đề của mình bằng cách nhấp vào nút **Bắt đầu xem xét** trên tab **Tóm tắt** của chủ đề Vé sự cố.
 
-![4](/images/5/5.1/4.png)
+![4](../../../images/5/5.1/4.png)
 
 5. Trong cửa sổ popup, nhấp vào **BỎ QUA TẤT CẢ CÁC NHIỆM VỤ**. Khi được yêu cầu xác nhận, nhấp vào **BỎ QUA TẤT CẢ CÁC NHIỆM VỤ MỘT LẦN NỮA**.
 
-![5](/images/5/5.1/5.png)
+![5](../../../images/5/5.1/5.png)
 
 6. Tạo **Trường Tính toán** để đếm số lượng vé, khách hàng và sản phẩm.
 
     1. Chọn tab **Dữ liệu**, sau đó là **Trường Dữ liệu**. Nhấp vào nút **Thêm trường tính toán**.
     
-    ![6](/images/5/5.1/6.png)
+    ![6](../../../images/5/5.1/6.png)
 
     2. Nhập **Tên** trong trình chỉnh sửa tính toán như sau:
 
@@ -80,7 +80,7 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
     `distinct_count({Ticket Id})`
 
-    ![7](/images/5/5.1/7.png)
+    ![7](../../../images/5/5.1/7.png)
 
     4. Lưu phép tính của bạn bằng cách chọn **Lưu** ở góc trên bên phải.
 
@@ -92,7 +92,7 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
         `distinct_count({Customer Id})`
 
-        ![8](/images/5/5.1/8.png)
+        ![8](../../../images/5/5.1/8.png)
 
         2. Số lượng Sản phẩm duy nhất
   
@@ -100,11 +100,11 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
         `distinct_count({Product Id})`
 
-      ![9](/images/5/5.1/9.png)
+      ![9](../../../images/5/5.1/9.png)
 
 7. Trong phần **Trường Dữ liệu**, điều chỉnh bộ lọc để hiển thị **Tất cả các trường**.
 
-![10](/images/5/5.1/10.png)
+![10](../../../images/5/5.1/10.png)
 
 8. Trong phần **Trường Dữ liệu**, dưới **Bao gồm**, chuyển đổi nút BẬT và TẮT để bao gồm/loại trừ các trường cho chủ đề của bạn. Bắt đầu bằng cách loại trừ các định danh duy nhất: **Agent Id, Customer Id**, và **Product Id**.
 
@@ -116,7 +116,7 @@ Trong bước này, chúng ta sẽ tạo và kiểm tra một **Q Topic** trên 
 
 10. Nhấp vào **V** ở bên phải xa của trường dữ liệu để mở rộng nó. Đảm bảo rằng **Ngày vé** có Vai trò là **Kích thước** và Loại Ngữ nghĩa là **Ngày**. Nhập một mô tả.
 
-![11](/images/5/5.1/11.png)
+![11](../../../images/5/5.1/11.png)
 
 11. Sử dụng bảng bên dưới để hoàn thành việc xem xét các trường dữ liệu trong chủ đề Q. Bao gồm:
 
@@ -166,17 +166,17 @@ Nhớ rằng, tên trường của bạn cho "Tên Khách hàng" và "Tên Sản
 
 1. Sau khi cập nhật các trường dữ liệu, lọc chế độ xem để chỉ hiển thị các trường đã bao gồm. 
 
-![12](/images/5/5.1/12.png)
+![12](../../../images/5/5.1/12.png)
 
 2. Xác minh rằng các trường dữ liệu đã bao gồm của bạn khớp với hình ảnh bên dưới. 
 
-![13](/images/5/5.1/13.png)
+![13](../../../images/5/5.1/13.png)
 
 ### Kiểm tra chủ đề của bạn:
 
 1. Ở giữa thanh màu xanh lam ở đầu màn hình **chủ đề** của bạn, nhấp vào **Hỏi một câu hỏi về Vé sự cố**. Hãy sử dụng **chủ đề** này để khám phá thêm thông tin chi tiết bằng cách đặt câu hỏi bằng ngôn ngữ tự nhiên. 
 
-![14](/images/5/5.1/14.png)
+![14](../../../images/5/5.1/14.png)
 
 2. Trong thanh **Amazon Q**, sao chép đoạn văn bản sau, và nhấp vào **HỎI**
 
@@ -184,7 +184,7 @@ Nhớ rằng, tên trường của bạn cho "Tên Khách hàng" và "Tên Sản
 
 Dưới đây là một phản hồi tạo sinh mẫu: 
 
-![15](/images/5/5.1/15.png)
+![15](../../../images/5/5.1/15.png)
 
 {{%notice note%}}
 Nếu chủ đề trả về một cửa sổ trống, hãy thử làm mới trang và gửi lại câu hỏi.
@@ -204,8 +204,8 @@ Mẹo - Để giúp bạn hình thành câu hỏi, hãy nghĩ đến Ai, Cái g�
 
 4. Khi bạn đã hoàn thành việc đặt câu hỏi, hãy đóng màn hình **Hỏi Các Câu Hỏi** bằng cách nhấp ra ngoài cửa sổ popup. Điều này sẽ trở lại tab tóm tắt **Vé sự cố**.
 
-![16](/images/5/5.1/16.png)
+![16](../../../images/5/5.1/16.png)
 
 5. Nhấp vào tab **Hoạt động Người dùng** để xem thống kê người dùng. Điều này sẽ cung cấp dữ liệu về mọi câu hỏi đã được đặt và mức độ phản hồi của Q. Trong tab này, bạn có thể phân tích hiệu suất chủ đề và cập nhật chi tiết chủ đề dựa trên phản hồi. 
 
-![17](/images/5/5.1/17.png)
+![17](../../../images/5/5.1/17.png)

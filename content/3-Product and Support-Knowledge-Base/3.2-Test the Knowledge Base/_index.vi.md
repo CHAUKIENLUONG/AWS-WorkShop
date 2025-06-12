@@ -30,15 +30,15 @@ Như đã định nghĩa trong phần giới thiệu, kỹ thuật prompt là ph
 
 3. Nhấp vào nút radio bên cạnh merger-knowledge-base mà chúng ta đã tạo trong phần trước. Sau đó nhấp vào **Test knowledge base**.
 
-![1](/images/3/3.2/1.png)
+![1](../../../images/3/3.2/1.png)
 
 4. Trong cửa sổ Test knowledge base, nhấp vào **Select model**.
 
-![2](/images/3/3.2/2.png)
+![2](../../../images/3/3.2/2.png)
 
 5. Trong cửa sổ pop-up, chọn **Anthropic, Claude 3.5 Sonnet**, và **On-demand**. Nhấp vào **Apply**.
 
-![3](/images/3/3.2/3.png)
+![3](../../../images/3/3.2/3.png)
 
 6. Trong phòng thí nghiệm trước đó, bạn đã sử dụng Amazon QuickSight để phát hiện ra rằng Ổ cắm thông minh có số lượng sự cố hỗ trợ cao nhất. Hãy sử dụng cơ sở kiến thức để khám phá thêm thông tin chi tiết về những sự cố hỗ trợ đó.
 
@@ -52,7 +52,7 @@ Như đã định nghĩa trong phần giới thiệu, kỹ thuật prompt là ph
    Lưu ý rằng kết quả được tạo ra bởi Knowledge Base có thể không hoàn toàn khớp với các mẫu được cung cấp trong hướng dẫn phòng thí nghiệm. Vì việc đào tạo, tinh chỉnh và cải tiến tổng thể cơ sở hạ tầng trừu tượng liên tục được cập nhật để cung cấp trải nghiệm hiệu suất và đáng tin cậy nhất cho người dùng cuối.
    {{%/notice%}}
 
-   ![4](/images/3/3.2/4.png)
+   ![4](../../../images/3/3.2/4.png)
 
    Lưu ý rằng phản hồi trong console bao gồm các tham chiếu đến chi tiết nguồn. Chi tiết nguồn có thể được truy cập bằng cách nhấp vào **Details** ở cuối mỗi phản hồi. Điều này cho phép tăng tính minh bạch cho các tuyên bố mà mô hình có thể đưa ra trong một phản hồi nhất định.
 
@@ -60,7 +60,7 @@ Như đã định nghĩa trong phần giới thiệu, kỹ thuật prompt là ph
 
    `Làm thế nào chúng ta có thể cập nhật tài liệu của mình để tránh một số cuộc gọi hỗ trợ không cần thiết?`
 
-   ![5](/images/3/3.2/5.png)
+   ![5](../../../images/3/3.2/5.png)
 
    {{%notice%}}
    Cơ sở kiến thức chứa hướng dẫn sử dụng sản phẩm và lịch sử ticket hỗ trợ. Dựa trên thông tin này, LLM tạo ra các hành động có thể được thực hiện để cải thiện tài liệu và giảm số lượng cuộc gọi hỗ trợ.

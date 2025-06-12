@@ -26,15 +26,15 @@ For your agent to use a **Lambda** function, you must attach a resource-based po
 
 2. In the list of functions, select the function name **BedrockAction**. The function to retrieve customer data has already been created and deployed prior to the lab. We won't be changing any of the code, only setting permissions.
 
-![1](/images/4/4.2/1.png)
+![1](../../images/4/4.2/1.png)
 
 3. The Code tab is opened by default. Select Configuration. Next, in the left menu, select **Permissions**. It should be the third item from the top.
 
-![2](/images/4/4.2/2.png)
+![2](../../images/4/4.2/2.png)
 
 4. Scroll down to **Resource-based policy statements**.
 
-![3](/images/4/4.2/3.png)
+![3](../../images/4/4.2/3.png)
 
 5. Click **Add permissions**.
 
@@ -55,14 +55,14 @@ For your agent to use a **Lambda** function, you must attach a resource-based po
 
     5. In the **Source ARN** text box paste the Agent ARN you copied after you created your agent. It should look similar to:
 
-    ![4](/images/4/4.2/4.png)
+    ![4](../../images/4/4.2/4.png)
 
     6. In the **Action** dropdown, select **lambda:InvokeFunction**.
 
     7. Click **Save**.
 
-    ![5](/images/4/4.2/5.png)
+    ![5](../../images/4/4.2/5.png)
 
 7. Verify that your Lambda Resource-based policy statement was saved.
 
-![6](/images/4/4.2/6.png)
+![6](../../images/4/4.2/6.png)

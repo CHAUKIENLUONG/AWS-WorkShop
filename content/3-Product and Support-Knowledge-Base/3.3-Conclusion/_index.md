@@ -28,7 +28,7 @@ In this lab, you:
 
 When you created the knowledge base, on OpenSearch Serverless vector store was created. 
 
-![1](/images/3/3.3/1.png)
+![1](../../images/3/3.3/1.png)
 
 Explore the collection to monitor performance. [OpenSearch Serverless Collections ](https://us-west-2.console.aws.amazon.com/aos/home?region=us-west-2#opensearch/collections)
 

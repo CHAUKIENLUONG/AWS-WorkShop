@@ -103,14 +103,14 @@ Nếu đoạn mã xác thực xác định bất kỳ vấn đề nào:
 Trong phần còn lại của workshop, bạn sẽ cần sử dụng một vai trò người dùng IAM được tạo bởi mẫu thiết lập cơ sở hạ tầng trong bước trước. Việc sử dụng vai trò này sẽ đảm bảo bạn có đủ quyền để hoàn thành workshop. Nếu người dùng IAM của bạn không thể đảm nhận các vai trò người dùng IAM, vui lòng liên hệ với quản trị viên AWS của bạn.
 
 1. Nhấp vào tên và ID tài khoản của bạn ở góc trên bên phải. Trong menu, chọn **Switch Role**.
-![1](/images/1/1.1/1.png)
+![1](../../../images/1/1.1/1.png)
 2. Điền vào mẫu Chuyển Vai:
 
 - Thêm ID Tài Khoản bạn đang sử dụng cho workshop.
 - Dán tên vai trò này vào tên vai trò IAM: aidlWSParticipantRole
 - Chọn một màu để liên kết với vai trò này.
 - Nhấp vào **Switch Role**.
-![2](/images/1/1.1/2.png)
+![2](../../../images/1/1.1/2.png)
 
 3. Xác minh rằng bạn đã đảm nhận đúng vai trò:
 
@@ -118,7 +118,7 @@ Trong phần còn lại của workshop, bạn sẽ cần sử dụng một vai t
 - Kiểm tra ở góc trên bên phải để xác minh rằng bạn thấy WSParticipantRole @ [YourAccountID]
 - Điều hướng đến [trang chủ console](https://us-west-2.console.aws.amazon.com/console?region=us-west-2)
 
-![3](/images/1/1.1/3.png)
+![3](../../../images/1/1.1/3.png)
 
 ### Những Điều Cần Lưu Ý Quan Trọng
 

@@ -28,7 +28,7 @@ Please note, AWS is continually making improvements to and expanding Bedrock cap
 
    2. Click **Model access**
 
-   ![1](/images/3/3.1/1.png)
+   ![1](../../images/3/3.1/1.png)
 
    3.  In the Model access menu, click Enable specific models --or-- Modify model access.
 
@@ -45,7 +45,7 @@ Please note, AWS is continually making improvements to and expanding Bedrock cap
    Please note some base models listed may already have **Access granted**. This will not affect your ability to complete the lab. If a model listed in this step is already granted, proceed requesting access to all other required models.
    {{%/notice %}}
 
-   ![2](/images/3/3.1/2.png)
+   ![2](../../images/3/3.1/2.png)
 
    Click **Next**.
 
@@ -65,7 +65,7 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
 2. In the Knowledge bases landing page, click **Create knowledge base with vector store**.
 
-![3](/images/3/3.1/3.png)
+![3](../../images/3/3.1/3.png)
 
 3. Step 1, provide knowledge base details:
 
@@ -79,13 +79,13 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
    3. Leave the IAM permissions, Query Engine, and other configurations as the default.
 
-   ![4](/images/3/3.1/4.png)
+   ![4](../../images/3/3.1/4.png)
 
    4.  Click **Next**.
 
-   ![5](/images/3/3.1/5.png)
+   ![5](../../images/3/3.1/5.png)
 
-   ![6](/images/3/3.1/6.png)
+   ![6](../../images/3/3.1/6.png)
 
 4. Step 2, configure data source:
 
@@ -93,7 +93,7 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
    `merger-knowledge-base-data-source`
 
-   ![7](/images/3/3.1/7.png)
+   ![7](../../images/3/3.1/7.png)
 
    2.  Click customerdata-{uniqueId} bucket name. Click the radio button next to data/ to select it as the location for the source data. Click Choose.
 
@@ -101,9 +101,9 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
    If you can't find your bucket, make sure you are in the correct AWS region.
    {{%/notice%}}
 
-   ![8](/images/3/3.1/8.png)
+   ![8](../../images/3/3.1/8.png)
 
-   ![9](/images/3/3.1/9.png)
+   ![9](../../images/3/3.1/9.png)
 
    3.  Verify the S3 URI:
 
@@ -115,7 +115,7 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
 5.  Step 3, select embeddings model and configure vector store:
 
-   ![10](/images/3/3.1/10.png)
+   ![10](../../images/3/3.1/10.png)
 
    1.  Under Embeddings model, click Select model and then select **Titan TExt Embeddings V2** model and **On-demand Inference mode**.
 
@@ -143,7 +143,7 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
    3. Click **Create knowledge base**.
 
-   ![11](/images/3/3.1/11.png)
+   ![11](../../images/3/3.1/11.png)
 
    {{%notice success%}}
    Wait for the knowledge base to be created. AWS will prepare the vector database in Amazon OpenSearch Serverless. This may take up to 10 minutes to complete.
@@ -153,11 +153,11 @@ After requesting model access, Amazon Bedrock is doing the "undifferentiated hea
 
 1. Once the knowledge base is created, wait until the knowledge base is successfully created:
 
-![12](/images/3/3.1/12.png)
+![12](../../images/3/3.1/12.png)
 
 2. Click **Go to data source** or scroll down to the Data source section. To sync, click the radio button next to the Data source that we created (name should be similar to merger-knowledge-base-data-source). Click **Sync**. This will take a few minutes.
 
-![13](/images/3/3.1/13.png)
+![13](../../images/3/3.1/13.png)
 
 {{%notice%}}
 Data from your S3 bucket is being read and broken "chunks." By default, Amazon Bedrock automatically splits your source data such that each chunk contains 300 tokens. The selected model, Amazon Titan Embeddings V2, is used to convert your data into vector embeddings for the knowledge base.
@@ -165,4 +165,4 @@ Data from your S3 bucket is being read and broken "chunks." By default, Amazon B
 
 3. When the sync is complete, you should receive another message.
 
-![14](/images/3/3.1/14.png)
+![14](../../images/3/3.1/14.png)

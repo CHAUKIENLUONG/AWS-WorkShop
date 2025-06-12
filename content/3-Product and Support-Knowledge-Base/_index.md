@@ -46,7 +46,7 @@ The productinfo/ and support/ data will provide highly-relevent contextual data 
 
 To augment discovery efforts, you will use Amazon Bedrock: Knowledge Bases to create a highly specified data source (product and support data for both companies) to perform Retrieval Augmented Generation (RAG) with a Foundation Model (FM) on the data source we define. Here is a logical architecture of the RAG architecture using Knowledge Bases and key concepts:
 
-![1](/images/3/1.png)
+![1](../images/3/1.png)
 
 * **Retrieval Augmented Generation (RAG)** is a methodology in artificial intelligence that combines the capabilities of two main components: a retrieval system and a generative model. This approach is particularly used in the context of natural language processing (NLP) tasks, such as question answering, content generation, and conversation systems. The objective of RAG is to enhance the quality, relevance, and accuracy of the generative model's outputs by dynamically incorporating external knowledge retrieved in real-time.
 

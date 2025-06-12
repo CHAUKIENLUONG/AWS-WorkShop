@@ -18,7 +18,7 @@ Action group có thể được định nghĩa để chuyên biệt hóa chức 
 
 3. Chọn **Edit in Agent Builder**.
 
-![1](/images/4/4.3/1.png)
+![1](../../../images/4/4.3/1.png)
 
 4. Cuộn xuống phần **Action groups**.
 
@@ -26,7 +26,7 @@ Action group có thể được định nghĩa để chuyên biệt hóa chức 
 Bedrock có thể đã tạo sẵn một action group mặc định ("UserInputAction"). Nếu vậy, hãy nhấp vào action group UserInputAction và làm theo các bước dưới đây để chỉnh sửa. Nếu bạn chưa có action group nào, hãy nhấp vào Add để tạo mới.
 {{%/notice%}}
 
-![2](/images/4/4.3/2.png)
+![2](../../../images/4/4.3/2.png)
 
 5. Nhấp vào **Add**.
 
@@ -62,12 +62,12 @@ Bedrock có thể đã tạo sẵn một action group mặc định ("UserInputA
 
   4. Thêm parameter
 
-   ![3](/images/4/4.3/3.png)
+   ![3](../../../images/4/4.3/3.png)
   {{%notice note%}}
   Nhấp vào dấu check sau khi chỉnh sửa mỗi thuộc tính của parameter.
   {{%/notice%}}
 
-  ![4](/images/4/4.3/4.png)
+  ![4](../../../images/4/4.3/4.png)
 
   1. Tên:
 
@@ -85,17 +85,17 @@ Bedrock có thể đã tạo sẵn một action group mặc định ("UserInputA
 
   `True`
 
-  ![5](/images/4/4.3/5.png)
+  ![5](../../../images/4/4.3/5.png)
 
-  ![6](/images/4/4.3/6.png)
+  ![6](../../../images/4/4.3/6.png)
 
   5. Nhấp vào **Create**.
 
 7. Xác nhận rằng action group đã được tạo.
 
-![7](/images/4/4.3/7.png)
+![7](../../../images/4/4.3/7.png)
 
 8. Cuộn lên đầu trang và nhấp vào **Save and exit**.
 
 9. Xác nhận rằng agent đã được cập nhật.
-![8](/images/4/4.3/8.png)
+![8](../../../images/4/4.3/8.png)
