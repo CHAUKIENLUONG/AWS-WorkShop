@@ -3,7 +3,7 @@ title = "Business Challenge"
 date = 2025
 weight = 3
 chapter = false
-pre = "<b>2.2. </b>"
+pre = "<b>1.2. </b>"
 +++
 
 ### Business Challenge

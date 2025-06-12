@@ -3,7 +3,7 @@ title = "Thách thức kinh doanh"
 date = 2025
 weight = 3
 chapter = false
-pre = "<b>2.2. </b>"
+pre = "<b>1.2. </b>"
 +++
 
 ### Thách thức kinh doanh
